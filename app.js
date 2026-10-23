@@ -765,28 +765,27 @@ async function placeOrder() {
 
   // Calculate total
 
-  let subtotal = 0;
+  // পণ্যের মোট দাম হিসাব
+let subtotal = 0;
 
+cart.forEach(item => {
+  subtotal +=
+    Number(item.price || 0) *
+    Number(item.quantity || 1);
+});
 
-  cart.forEach(item => {
+// ডেলিভারি চার্জ
+const delivery = subtotal >= 2000 ? 0 : 60;
 
-    subtotal +=
-      Number(item.price || 0) *
-      Number(item.quantity || 1);
-
-  });
-
-
-  const delivery =
-    subtotal >= 2000 ? 0 : 60;
-
-
-  const grandTotal =
-    subtotal + delivery;
-
+// কুপন ছাড় ছাড়া সর্বমোট টাকা
+const grandTotal = subtotal + delivery;
 
   try {
-
+    // Debug: Check coupon and discount variables
+console.log("Coupon value:", window.shoporaAppliedCoupon);
+console.log("Coupon variable:", typeof shoporaAppliedCoupon);
+console.log("Discount variable:", typeof discount);
+console.log("Firebase save function:", typeof window.firebaseSetDoc);
     console.log("Creating order...");
 
 
@@ -855,9 +854,7 @@ async function placeOrder() {
 
         subtotal: subtotal,
         // Order-এর সঙ্গে coupon ও discount সংরক্ষণ
-        couponCode: shoporaAppliedCoupon?.code || null,
-        discount: discount,
-
+        
         deliveryCharge: delivery,
 
         total: grandTotal,
@@ -1621,21 +1618,28 @@ function checkout() {
     return;
   }
   
-  let subtotal = 0;
-  
-  cart.forEach(item => {
-    
-    subtotal +=
-      Number(item.price || 0) *
-      Number(item.quantity || 1);
-    
-  });
-  
-  const delivery =
-    subtotal >= 2000 ? 0 : 60;
-  
-  const grandTotal =
-    subtotal + delivery;
+  // পণ্যের মোট দাম হিসাব করা
+let subtotal = 0;
+
+cart.forEach(item => {
+  subtotal +=
+    Number(item.price || 0) *
+    Number(item.quantity || 1);
+});
+
+// ডেলিভারি চার্জ হিসাব করা
+const delivery = subtotal >= 2000 ? 0 : 60;
+
+// কুপন থাকলে ছাড় হিসাব করা, না থাকলে ০
+const discount = shoporaAppliedCoupon ?
+  Math.min(
+    Number(shoporaAppliedCoupon.discount) || 0,
+    subtotal
+  ) :
+  0;
+
+// ছাড় ও ডেলিভারি যোগ করে মোট টাকা হিসাব
+const grandTotal = subtotal - discount + delivery;
   
   
   const summary =
