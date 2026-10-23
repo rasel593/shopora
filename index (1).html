@@ -1,0 +1,1582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopora</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div id="authScreen" class="authScreen">
+
+  <div class="authLogo">
+    🛍️
+    <h1>Shopora</h1>
+    <p>Shop More • Live Better</p>
+  </div>
+
+  <div class="authBox">
+
+    <h2 id="authTitle">Welcome Back 👋</h2>
+    <p id="authSubtitle">Login to continue shopping</p>
+
+    <input
+      id="nameInput"
+      type="text"
+      placeholder="Full Name"
+      style="display:none;"
+    >
+
+    <input
+      id="emailInput"
+      type="email"
+      placeholder="Email Address"
+    >
+
+    <input
+      id="passwordInput"
+      type="password"
+      placeholder="Password"
+    >
+
+    <button class="authButton" onclick="loginUser()">
+      Login
+    </button>
+
+    <p class="switchAuth">
+      Don't have an account?
+      <span onclick="showSignup()">Sign Up</span>
+    </p>
+
+  </div>
+
+</div>
+
+<header>
+  <div class="logo">
+    🛍️ Shopora
+  </div>
+  <!-- Notification Button -->
+<button
+  class="notificationBtn"
+  onclick="openNotifications()"
+  aria-label="Notifications"
+>
+  🔔
+  <span id="notificationCount">0</span>
+</button>
+
+<!-- Notification Panel -->
+<div id="notificationPanel" class="notificationPanel">
+
+  
+<div class="notificationHeader">
+  <h3>🔔 Notifications</h3>
+  <button onclick="markAllNotificationsRead()">Mark all as read</button>
+  <button onclick="closeNotifications()">✕</button>
+</div>
+
+  <div id="notificationList">
+    <div class="emptyNotifications">
+      No notifications yet.
+    </div>
+  </div>
+
+</div>
+  <div class="cart">
+    🛒 <span id="cartCount">0</span>
+  </div>
+</header>
+
+<section class="hero">
+  <div>
+    <p>Welcome to Shopora</p>
+    <h1>Shop More.<br>Live Better.</h1>
+    <button onclick="scrollProducts()">Shop Now</button>
+  </div>
+</section>
+
+<div class="searchBox">
+  <input
+    type="text"
+    id="search"
+    placeholder="Search products..."
+    oninput="searchProducts()"
+  >
+</div>
+
+<section class="categories">
+  <h2>Categories</h2>
+
+  <div class="categoryList">
+    <button onclick="filterCategory('All')">All</button>
+    <button onclick="filterCategory('Fashion')">👕 Fashion</button>
+    <button onclick="filterCategory('Electronics')">💻 Electronics</button>
+    <button onclick="filterCategory('Beauty')">💄 Beauty</button>
+  </div>
+</section>
+
+<section class="products" id="products">
+  <h2>Popular Products</h2>
+
+  <div id="productList" class="productGrid"></div>
+</section>
+
+<div id="cartPanel" class="cartPanel">
+  
+  <div class="cartHeader">
+    <h2>My Cart</h2>
+    <button onclick="closeCart()">✕</button>
+  </div>
+  
+  <div id="cartItems"></div>
+  
+  <div class="cartBottom">
+    <h3>Total: ৳<span id="total">0</span></h3>
+    
+    <button onclick="checkout()">
+      Checkout
+    </button>
+  </div>
+  
+</div>
+
+<nav>
+  <button onclick="scrollProducts()">🏠<small>Home</small></button>
+  <!-- Shop button opens the full product section -->
+<button onclick="openShopPage()">🛍️<small>Shop</small></button>
+  <button onclick="openCart()">🛒<small>Cart</small>
+  <span id="cartCount">0</span>
+  </button>
+  <!-- 👤 Profile navigation button -->
+
+  <div onclick="openProfile()">
+  
+  <div>
+    👤
+  </div>
+  
+  <span>
+    Profile
+  </span>
+  
+</div>
+ </nav>
+
+<script src="app.js"></script>
+<!-- Product Details -->
+<div id="productDetails" class="detailsOverlay">
+
+  <div class="detailsBox">
+
+    <button class="closeDetails" onclick="closeProductDetails()">
+      ✕
+    </button>
+
+    <img id="detailImage" class="detailImage">
+
+    <h2 id="detailName"></h2>
+
+    <div class="detailPrice">
+      ৳<span id="detailPrice">0</span>
+    </div>
+
+    <p id="detailCategory"></p>
+
+    <p id="detailDescription">
+      No description available.
+    </p>
+    
+    
+<!-- ========================================
+     STEP 21A: PRODUCT REVIEWS & RATINGS
+     ======================================== -->
+
+<section id="productReviews">
+
+  <!-- Review section heading -->
+  <div class="reviewHeader">
+    <h3>Customer Reviews ⭐</h3>
+    <p>See what customers think about this product.</p>
+  </div>
+
+  <!-- Average rating এবং total review count -->
+  <div class="reviewSummary">
+
+    <div class="reviewAverage">
+      <strong id="averageRating">0.0</strong>
+      <div id="averageStars" aria-label="Average rating">
+        ☆☆☆☆☆
+      </div>
+      <span id="reviewCount">0 reviews</span>
+    </div>
+
+  </div>
+
+  <!-- নতুন review লেখার form -->
+  <div class="reviewForm">
+
+    <h4>Write a Review</h4>
+
+    <!-- Customer এখানে 1 থেকে 5 star নির্বাচন করবে -->
+    <div class="starPicker" aria-label="Choose your rating">
+
+      <button type="button" onclick="selectReviewRating(1)" aria-label="1 star">☆</button>
+      <button type="button" onclick="selectReviewRating(2)" aria-label="2 stars">☆</button>
+      <button type="button" onclick="selectReviewRating(3)" aria-label="3 stars">☆</button>
+      <button type="button" onclick="selectReviewRating(4)" aria-label="4 stars">☆</button>
+      <button type="button" onclick="selectReviewRating(5)" aria-label="5 stars">☆</button>
+
+    </div>
+
+    <!-- Review title -->
+    <input
+      id="reviewTitle"
+      type="text"
+      maxlength="80"
+      placeholder="Review title (optional)"
+    >
+
+    <!-- Customer-এর লিখিত review -->
+    <textarea
+      id="reviewComment"
+      rows="4"
+      maxlength="1000"
+      placeholder="Share your experience with this product..."
+    ></textarea>
+
+    <!-- Review submit button -->
+    <button
+      type="button"
+      id="submitReviewButton"
+      onclick="submitProductReview()"
+    >
+      Submit Review
+    </button>
+
+    <!-- Success বা error message দেখানোর জায়গা -->
+    <p id="reviewMessage" role="status"></p>
+
+  </div>
+
+  <!-- Saved reviews এখানে দেখানো হবে -->
+  <div class="reviewListSection">
+
+    <h4>Customer Feedback</h4>
+
+    <div id="reviewList">
+
+      <!-- JavaScript Firebase থেকে reviews load করবে -->
+      <p class="reviewPlaceholder">
+        Reviews will appear here.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+    <p>
+      ⭐ <b>4.6</b> (120 reviews)
+    </p>
+
+    <div class="quantityBox">
+
+      <button onclick="changeQuantity(-1)">−</button>
+
+      <span id="quantity">1</span>
+
+      <button onclick="changeQuantity(1)">+</button>
+
+    </div>
+    <!-- Wishlist button -->
+    <button
+      id="detailWishlistButton"
+      onclick="toggleDetailWishlist()"
+    >
+      ♡ Add to Wishlist
+    </button>
+
+    <button
+      class="addDetailsCart"
+      onclick="addDetailToCart()"
+    >
+      🛒 Add to Cart
+    </button>
+
+  </div>
+
+</div>
+<script type="module">
+
+  import { initializeApp }
+  from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+
+  import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    onAuthStateChanged,
+    signOut
+  }
+  from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
+  import {
+    getFirestore,
+    collection,
+    getDocs,
+    doc,
+    setDoc,
+    getDoc,
+    deleteDoc,
+    query,
+    where,
+    onSnapshot,
+    addDoc,
+    serverTimestamp,
+    runTransaction
+  }
+  from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+
+  // Firebase configuration
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA1O-m0i-D9_I05HzNVHnK-o-EewbpAaxw",
+    authDomain: "shopora-bb01d.firebaseapp.com",
+    projectId: "shopora-bb01d",
+    storageBucket: "shopora-bb01d.firebasestorage.app",
+    messagingSenderId: "905103045881",
+    appId: "1:905103045881:web:4cd2d7a88c3b4d91c21e28",
+    measurementId: "G-QN255NMC3Y"
+  };
+
+
+  // Initialize Firebase
+
+  const app = initializeApp(firebaseConfig);
+
+
+  // Initialize Authentication
+
+  const auth = getAuth(app);
+
+
+  // Initialize Firestore Database
+
+  const db = getFirestore(app);
+
+
+  // Make Firebase available to app.js
+
+  window.shoporaAuth = auth;
+
+  window.shoporaDB = db;
+
+
+  // Authentication functions
+
+  window.firebaseCreateUser =
+    createUserWithEmailAndPassword;
+
+  window.firebaseLogin =
+    signInWithEmailAndPassword;
+
+  window.firebaseLogout =
+    signOut;
+
+
+  // Firestore functions
+
+  window.firebaseCollection =
+    collection;
+
+  window.firebaseGetDocs =
+    getDocs;
+
+  window.firebaseDoc =
+    doc;
+
+  window.firebaseSetDoc =
+    setDoc;
+  window.firebaseGetDoc = getDoc;
+  window.firebaseDeleteDoc = deleteDoc;
+  
+  window.firebaseQuery = query;
+  window.firebaseWhere = where;
+  window.firebaseOnAuthStateChanged = onAuthStateChanged;
+  window.firebaseOnSnapshot = onSnapshot;
+  // Review save করার Firebase function
+  window.firebaseAddDoc = addDoc;
+
+  // Review-এর server timestamp তৈরি করবে
+  window.firebaseServerTimestamp = serverTimestamp;
+  
+  // Step 24D: app.js থেকে Firestore transaction ব্যবহার
+  window.firebaseRunTransaction = runTransaction;
+
+
+  // Check login status
+
+  // =========================
+// FIREBASE LOGIN STATE
+// ==========================
+
+
+onAuthStateChanged(auth, async user => {
+  
+  // Login screen
+  const authScreen =
+    document.getElementById("authScreen");
+  
+  
+  // =========================
+  // USER LOGGED IN
+  // =========================
+  
+  if (user) {
+    
+    console.log(
+      "Logged in:",
+      user.email
+    );
+    
+    
+    // Login screen hide
+    if (authScreen) {
+      
+      authScreen.style.display = "none";
+      
+    }
+    
+    
+    // Products load
+    await loadProducts();
+    
+    
+    // Cart load
+    await loadCart();
+    
+    
+    // Profile data load
+    await loadProfile();
+    
+    // User login করলে wishlist load হবে
+    await loadWishlist();
+    
+    // Admin check
+    if (
+      typeof window.checkAdmin === "function"
+    ) {
+      
+      const isAdmin =
+        await window.checkAdmin();
+      
+      console.log(
+        "ADMIN STATUS:",
+        isAdmin
+      );
+      
+    }
+    
+  }
+  
+  
+  // =========================
+  // USER LOGGED OUT
+  // =========================
+  
+  else {
+    
+    console.log(
+      "No user logged in"
+    );
+    
+    
+    // Login screen show
+    if (authScreen) {
+      
+      authScreen.style.display = "flex";
+      
+    }
+    
+    
+    // Local cart clear
+    cart = [];
+    
+    
+    // Cart UI update
+    updateCart();
+    
+  }
+  
+});
+
+</script>
+<!-- =========================
+     PREMIUM PROFILE PAGE
+========================= -->
+
+<section id="profilePage">
+
+  <!-- Profile Header -->
+  <div class="premiumProfileHeader">
+
+    <!-- Close button -->
+    <button
+      class="profileCloseBtn"
+      onclick="closeProfile()">
+      ✕
+    </button>
+
+    <!-- Avatar -->
+    <div class="premiumAvatar">
+      👤
+    </div>
+
+    <!-- User information -->
+    <h2 id="profileName">
+      Shopora User
+    </h2>
+
+    <p id="profileEmail">
+      email@example.com
+    </p>
+
+  </div>
+
+
+  <!-- Profile Menu -->
+  <div class="profileMenu">
+
+    <!-- My Orders -->
+    <button
+      class="profileMenuItem"
+      onclick="openOrders()">
+
+      <div class="profileMenuIcon">
+        📦
+      </div>
+
+      <div class="profileMenuText">
+        <strong>My Orders</strong>
+        <span>View your orders</span>
+      </div>
+
+      <div class="profileArrow">
+        ›
+      </div>
+
+    </button>
+    
+    <!-- My Wishlist -->
+      <button
+        class="profileMenuItem"
+        onclick="openWishlist()">
+      
+        <!-- Wishlist icon -->
+        <div class="profileMenuIcon">
+          ❤️
+        </div>
+      
+        <!-- Wishlist text -->
+        <div class="profileMenuText">
+          <strong>My Wishlist</strong>
+          <span>View your saved products</span>
+        </div>
+      
+        <!-- Arrow -->
+        <div class="profileArrow">
+          ›
+        </div>
+      
+      </button>
+
+
+    <!-- Admin Panel -->
+    <button
+      class="profileMenuItem"
+      onclick="openAdminPanel()">
+
+      <div class="profileMenuIcon">
+        🛠️
+      </div>
+
+      <div class="profileMenuText">
+        <strong>Admin Panel</strong>
+        <span>Manage Shopora</span>
+      </div>
+
+      <div class="profileArrow">
+        ›
+      </div>
+
+    </button>
+    <!-- Privacy Policy option at the bottom of Admin Panel -->
+<div class="admin-privacy-link-card">
+  <div class="admin-privacy-icon">🛡️</div>
+
+  <div class="admin-privacy-info">
+    <h3>Privacy Policy</h3>
+    <p>View Shopora privacy policy and data practices.</p>
+  </div>
+
+  <button
+    type="button"
+    class="admin-privacy-open-btn"
+    onclick="openPrivacyPolicyPage()"
+  >
+    View Policy →
+  </button>
+</div>
+
+<!-- Separate Privacy Policy page -->
+<section id="privacy-policy-page" class="privacy-page" hidden>
+  <button type="button"
+          class="privacy-back-btn"
+          onclick="closePrivacyPolicyPage()">
+    ← Back to Admin Panel
+  </button>
+
+  <div class="privacy-hero">
+    <span>SHOPORA • PRIVACY CENTER</span>
+    <h1>Privacy Policy</h1>
+    <p>Your privacy matters to us.</p>
+  </div>
+
+  <article class="privacy-document">
+    <p><strong>Last updated:</strong> October 21, 2026</p>
+
+    <h2>1. Information We Collect</h2>
+    <p>Shopora may collect account details, email, delivery information, order history, cart, wishlist and reviews to provide shopping services.</p>
+
+    <h2>2. How We Use Your Information</h2>
+    <p>We use information to manage accounts, process orders, provide delivery updates and improve our services.</p>
+
+    <h2>3. Data Storage</h2>
+    <p>Shopora uses Firebase Authentication and Cloud Firestore for authentication and application data storage.</p>
+
+    <h2>4. Information Sharing</h2>
+    <p>We do not sell personal information. Information may be shared with service providers when necessary to operate Shopora or fulfill orders.</p>
+
+    <h2>5. Data Security</h2>
+    <p>We take reasonable steps to protect information, but no online service can guarantee absolute security.</p>
+
+    <h2>6. Data Deletion</h2>
+    <p>Customers may contact Shopora support to request account or personal data deletion, subject to applicable legal requirements.</p>
+
+    <h2>7. Policy Updates</h2>
+    <p>Updates to this policy will be published on this page.</p>
+
+    <h2>8. Contact Us</h2>
+    <p>For privacy questions, customers can contact Shopora through the official support details provided in the app.</p>
+  </article>
+</section>
+    
+    
+    <!-- Shopora Terms & Conditions link in Admin Panel -->
+<div class="admin-terms-card">
+  <div class="admin-terms-icon">📜</div>
+
+  <div class="admin-terms-info">
+    <h3>Terms &amp; Conditions</h3>
+    <p>Shopora's shopping rules and terms of use.</p>
+  </div>
+
+  <button
+    type="button"
+    class="admin-terms-open-btn"
+    onclick="openTermsPage()"
+  >
+    View Terms →
+  </button>
+</div>
+
+<!-- Separate Terms & Conditions page -->
+<section id="shopora-terms-page" class="terms-page" hidden>
+
+  <button
+    type="button"
+    class="terms-back-btn"
+    onclick="closeTermsPage()"
+  >
+    ← Back to Admin Panel
+  </button>
+
+  <div class="terms-hero">
+    <span>SHOPORA • LEGAL CENTER</span>
+    <h1>Terms &amp; Conditions</h1>
+    <p>Please read these terms before using Shopora.</p>
+  </div>
+
+  <article class="terms-document">
+
+    <p><strong>Last updated:</strong> October 21, 2026</p>
+
+    <h2>1. Acceptance of Terms</h2>
+    <p>By accessing or using Shopora, you agree to these Terms &amp; Conditions and applicable laws.</p>
+
+    <h2>2. Customer Accounts</h2>
+    <p>You are responsible for providing accurate account information and protecting your login credentials. Please notify Shopora if you suspect unauthorized access.</p>
+
+    <h2>3. Products and Prices</h2>
+    <p>Product descriptions, images, availability and prices are provided for shopping purposes. We may correct errors or update listings when necessary.</p>
+
+    <h2>4. Orders and Payments</h2>
+    <p>Placing an order is a request to purchase products. Orders may require confirmation and may be cancelled when necessary, subject to applicable law. Payment terms will be shown during checkout.</p>
+
+    <h2>5. Delivery</h2>
+    <p>Delivery estimates are not guaranteed unless expressly stated. Delays may occur due to circumstances outside our control.</p>
+
+    <h2>6. Returns and Refunds</h2>
+    <p>Returns, replacements and refunds are handled according to Shopora's published Return &amp; Refund Policy and applicable consumer protection laws.</p>
+
+    <h2>7. Coupons and Discounts</h2>
+    <p>Coupons are subject to their stated validity dates, eligibility requirements, minimum order values and discount limits.</p>
+
+    <h2>8. Acceptable Use</h2>
+    <p>You must not misuse the application, attempt unauthorized access, submit fraudulent orders or interfere with Shopora's services.</p>
+
+    <h2>9. Limitation of Liability</h2>
+    <p>Nothing in these terms excludes or limits liability where doing so is prohibited by applicable law. Consumer rights provided by law remain unaffected.</p>
+
+    <h2>10. Changes to These Terms</h2>
+    <p>We may update these terms when our services or legal requirements change. Updated terms will be published on this page.</p>
+
+    <h2>11. Contact Us</h2>
+    <p>For questions about these terms, contact Shopora through the official support details provided in the application.</p>
+
+  </article>
+</section>
+
+<!-- Shopora Contact Us card under Admin Panel -->
+<div class="admin-contact-card">
+  <div class="admin-contact-icon">💬</div>
+
+  <div class="admin-contact-info">
+    <h3>Contact Us</h3>
+    <p>Need help? Get in touch with Shopora support.</p>
+  </div>
+
+  <button
+    type="button"
+    class="admin-contact-open-btn"
+    onclick="openContactPage()"
+  >
+    Contact Support →
+  </button>
+</div>
+
+<!-- Separate Contact Us page -->
+<section id="shopora-contact-page" class="contact-page" hidden>
+
+  <button
+    type="button"
+    class="contact-back-btn"
+    onclick="closeContactPage()"
+  >
+    ← Back to Admin Panel
+  </button>
+
+  <div class="contact-hero">
+    <span>SHOPORA • CUSTOMER CARE</span>
+    <h1>How can we help?</h1>
+    <p>We're here to help with your shopping experience.</p>
+  </div>
+
+  <div class="contact-info-grid">
+
+    <div class="contact-info-card">
+      <span>📧</span>
+      <h3>Email Support</h3>
+      <p>Contact us using your official Shopora support email.</p>
+    </div>
+
+    <div class="contact-info-card">
+      <span>📦</span>
+      <h3>Order Support</h3>
+      <p>Keep your order ID ready when asking about an order.</p>
+    </div>
+
+    <div class="contact-info-card">
+      <span>🔒</span>
+      <h3>Account Support</h3>
+      <p>Never share your password or verification codes.</p>
+    </div>
+
+  </div>
+
+  <div class="contact-form-card">
+    <h2>Send Us a Message</h2>
+    <p>Complete the form to prepare a support message.</p>
+
+    <form id="shoporaContactForm">
+
+      <label for="contactCustomerName">Your Name</label>
+      <input
+        id="contactCustomerName"
+        type="text"
+        maxlength="100"
+        placeholder="Enter your name"
+        required
+      >
+
+      <label for="contactCustomerEmail">Email Address</label>
+      <input
+        id="contactCustomerEmail"
+        type="email"
+        maxlength="254"
+        placeholder="you@example.com"
+        required
+      >
+
+      <label for="contactSubject">Subject</label>
+      <select id="contactSubject" required>
+        <option value="">Choose a subject</option>
+        <option value="Order issue">Order issue</option>
+        <option value="Delivery question">Delivery question</option>
+        <option value="Payment issue">Payment issue</option>
+        <option value="Return or refund">Return or refund</option>
+        <option value="Account help">Account help</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <label for="contactMessage">Your Message</label>
+      <textarea
+        id="contactMessage"
+        rows="5"
+        maxlength="3000"
+        placeholder="Tell us how we can help..."
+        required
+      ></textarea>
+
+      <button type="submit" class="contact-submit-btn">
+        Prepare Email →
+      </button>
+
+      <p id="contactFormMessage" role="status"></p>
+
+    </form>
+  </div>
+
+</section>
+
+
+<!-- Shopora FAQ card under Admin Panel -->
+<div class="admin-faq-card">
+  <div class="admin-faq-icon">❓</div>
+  <div class="admin-faq-info">
+    <h3>Help & FAQ</h3>
+    <p>Find answers to common shopping questions.</p>
+  </div>
+  <button type="button" onclick="openFAQPage()">
+    View FAQs →
+  </button>
+</div>
+
+<!-- Separate FAQ page -->
+<section id="shopora-faq-page" class="faq-page" hidden>
+  <button type="button" class="faq-back-btn" onclick="closeFAQPage()">
+    ← Back to Admin Panel
+  </button>
+
+  <div class="faq-hero">
+    <span>SHOPORA • HELP CENTER</span>
+    <h1>How can we help?</h1>
+    <p>Quick answers to your shopping questions.</p>
+  </div>
+
+  <div class="faq-list">
+    <details>
+      <summary>How can I place an order?</summary>
+      <p>Choose a product, add it to your cart, and complete checkout with your delivery details.</p>
+    </details>
+
+    <details>
+      <summary>How can I track my order?</summary>
+      <p>Open the Orders or Order Tracking section in Shopora to check your order status.</p>
+    </details>
+
+    <details>
+      <summary>How do discount coupons work?</summary>
+      <p>Enter a valid coupon at checkout. Minimum order requirements, expiry dates and discount limits may apply.</p>
+    </details>
+
+    <details>
+      <summary>How much is the delivery charge?</summary>
+      <p>The current Shopora checkout calculates delivery based on your order subtotal. Check the total before placing your order.</p>
+    </details>
+
+    <details>
+      <summary>Can I cancel or return an order?</summary>
+      <p>Contact Shopora support with your order ID to ask about cancellation, returns or refunds. Eligibility depends on the applicable policy.</p>
+    </details>
+
+    <details>
+      <summary>Is my personal information safe?</summary>
+      <p>Shopora uses Firebase services for account and application data. Read the Privacy Policy for more information.</p>
+    </details>
+
+    <details>
+      <summary>How do I contact support?</summary>
+      <p>Open the Contact Us page in Shopora and follow the available support instructions.</p>
+    </details>
+  </div>
+</section>
+
+
+<!-- About Shopora card -->
+<div class="admin-about-card">
+  <div class="admin-about-icon">🛍️</div>
+  <div class="admin-about-info">
+    <h3>About Shopora</h3>
+    <p>Learn more about our shopping platform.</p>
+  </div>
+  <button type="button" onclick="openAboutPage()">
+    Discover Us →
+  </button>
+</div>
+
+<!-- Separate About Shopora page -->
+<section id="shopora-about-page" class="about-page" hidden>
+  <button type="button" class="about-back-btn"
+          onclick="closeAboutPage()">
+    ← Back to Admin Panel
+  </button>
+
+  <div class="about-hero">
+    <span>WELCOME TO SHOPORA</span>
+    <h1>Shopping Made Simple.</h1>
+    <p>Your shopping journey, all in one place.</p>
+    <div class="about-brand">SHOP<span>ORA</span></div>
+  </div>
+
+  <div class="about-content">
+    <article class="about-section">
+      <div class="about-symbol">💜</div>
+      <h2>Who We Are</h2>
+      <p>
+        Shopora is an online shopping platform designed to help
+        customers explore products, manage their carts, save
+        favourites and place orders conveniently.
+      </p>
+    </article>
+
+    <article class="about-section">
+      <div class="about-symbol">🎯</div>
+      <h2>Our Mission</h2>
+      <p>
+        Our goal is to make online shopping easy to navigate,
+        convenient to use and enjoyable for every customer.
+      </p>
+    </article>
+
+    <h2 class="about-why-title">Why Shopora?</h2>
+
+    <div class="about-benefits">
+      <div><span>🔎</span><h3>Easy Discovery</h3>
+        <p>Browse and search products easily.</p></div>
+      <div><span>❤️</span><h3>Your Favourites</h3>
+        <p>Keep products you like in your wishlist.</p></div>
+      <div><span>📦</span><h3>Order Tracking</h3>
+        <p>Check your order status in the app.</p></div>
+      <div><span>🏷️</span><h3>Special Offers</h3>
+        <p>Use eligible coupons at checkout.</p></div>
+    </div>
+
+    <div class="about-bottom">
+      <h2>Thank you for choosing Shopora!</h2>
+      <p>We're glad to be part of your shopping journey.</p>
+      <button type="button"
+              onclick="closeAboutPage(); openContactPage();">
+        Contact Us →
+      </button>
+    </div>
+  </div>
+</section>
+
+
+    <!-- Logout -->
+    <button
+      class="profileMenuItem logoutItem"
+      onclick="logoutUser()">
+
+      <div class="profileMenuIcon">
+        🚪
+      </div>
+
+      <div class="profileMenuText">
+        <strong>Logout</strong>
+        <span>Sign out from Shopora</span>
+      </div>
+      
+
+      <div class="profileArrow">
+        ›
+      </div>
+
+    </button>
+  
+
+
+  </div>
+
+</section>
+
+
+
+<!-- ========================================
+     WISHLIST SCREEN
+     ======================================== -->
+
+<div id="wishlistScreen" class="pageScreen">
+  
+  <!-- Wishlist header -->
+  <div class="pageHeader">
+    
+    <!-- Back button -->
+    <button onclick="closeWishlist()">
+      ←
+    </button>
+    
+    <!-- Page title -->
+    <h2>My Wishlist ❤️</h2>
+    
+  </div>
+  
+  <!-- Wishlist products এখানে দেখাবে -->
+  <div id="wishlistItems">
+    
+    <!-- JavaScript এখানে wishlist items বসাবে -->
+    
+  </div>
+  
+</div>
+
+
+<!-- =========================
+     CHECKOUT SCREEN
+========================= -->
+<div id="checkoutScreen" class="checkoutOverlay">
+
+  <div class="checkoutBox">
+
+    <div class="checkoutHeader">
+      <h2>Checkout</h2>
+      <button onclick="closeCheckout()">✕</button>
+    </div>
+
+    <h3>Delivery Information</h3>
+
+    <input
+      type="text"
+      id="checkoutName"
+      placeholder="Full Name"
+    >
+
+    <input
+      type="tel"
+      id="checkoutPhone"
+      placeholder="Phone Number"
+    >
+
+    <input
+      type="text"
+      id="checkoutCity"
+      placeholder="City"
+    >
+
+    <textarea
+      id="checkoutAddress"
+      placeholder="Full Delivery Address"
+      rows="4"
+    ></textarea>
+
+    <h3>Order Summary</h3>
+
+    <div id="checkoutSummary"></div>
+    
+<!-- ========================================
+     STEP 25A: DISCOUNT COUPON HTML
+     ======================================== -->
+
+<!-- Checkout-এ coupon apply করার section -->
+<section id="couponSection" class="couponSection">
+
+  <!-- Coupon section heading -->
+  <h3>🏷️ Have a Coupon?</h3>
+
+  <!-- Coupon code input ও Apply button -->
+  <div class="couponInputRow">
+    <input
+      type="text"
+      id="couponCode"
+      placeholder="Enter coupon code"
+      maxlength="40"
+      autocomplete="off"
+      aria-label="Coupon code"
+    >
+
+    <button
+      type="button"
+      id="applyCouponButton"
+      onclick="applyCoupon()"
+    >
+      Apply
+    </button>
+  </div>
+
+  <!-- Coupon success বা error message -->
+  <p id="couponMessage" role="status" aria-live="polite"></p>
+
+  <!-- Applied coupon details -->
+  <div id="appliedCouponInfo" hidden></div>
+
+</section>
+
+<!-- ========================================
+     END STEP 25A
+     ======================================== -->
+
+      <!-- =========================
+     PAYMENT METHOD
+    ========================= -->
+    
+    <h3>Payment Method</h3>
+    
+    <div class="paymentMethods">
+    
+      <!-- Cash on Delivery -->
+      <label class="paymentOption">
+    
+        <input
+          type="radio"
+          name="paymentMethod"
+          value="cod"
+          checked
+        >
+    
+        <div class="paymentOptionContent">
+    
+          <span class="paymentIcon">
+            💵
+          </span>
+    
+          <div>
+            <strong>Cash on Delivery</strong>
+    
+            <small>
+              Pay when your order arrives
+            </small>
+          </div>
+    
+        </div>
+    
+      </label>
+    
+    
+      <!-- Online Payment - Coming Soon -->
+      <label class="paymentOption disabledPayment">
+    
+        <input
+          type="radio"
+          name="paymentMethod"
+          value="online"
+          disabled
+        >
+    
+        <div class="paymentOptionContent">
+    
+          <span class="paymentIcon">
+            💳
+          </span>
+    
+          <div>
+            <strong>Online Payment</strong>
+    
+            <small>
+              bKash / Nagad / Card — Coming Soon
+            </small>
+          </div>
+    
+        </div>
+    
+      </label>
+    
+    </div>
+
+    <button
+      class="placeOrderBtn"
+      onclick="placeOrder()"
+    >
+      🛍️ Place Order
+    </button>
+
+  </div>
+
+</div>
+
+
+<div id="orderSuccess" class="checkoutOverlay">
+
+  <div class="successBox">
+
+    <div class="successIcon">✓</div>
+
+    <h2>Order Placed!</h2>
+
+    <p>Your order has been placed successfully.</p>
+
+    <p>
+      Order ID:
+      <strong id="successOrderId"></strong>
+    </p>
+
+    <button
+      class="placeOrderBtn"
+      onclick="closeOrderSuccess()"
+    >
+      Continue Shopping
+    </button>
+
+  </div>
+
+</div>
+
+<!-- =========================
+     MY ORDERS SCREEN
+     User এখান থেকে নিজের order দেখতে পারবে
+========================= -->
+
+<div id="ordersScreen" class="checkoutOverlay">
+  
+  <div class="checkoutBox">
+    
+    <!-- Orders header -->
+    <div class="checkoutHeader">
+      
+      <h2>My Orders</h2>
+      
+      <!-- Orders screen বন্ধ করার button -->
+      <button onclick="closeOrders()">
+        ✕
+      </button>
+      
+    </div>
+    
+    
+    <!-- Firebase থেকে orders এখানে দেখানো হবে -->
+    <div id="ordersList">
+      
+      <div class="ordersLoading">
+        Loading orders...
+      </div>
+      
+    </div>
+    
+  </div>
+  
+</div>
+
+
+<!-- =========================
+     ADMIN PANEL
+========================= -->
+
+<div id="adminPanel" class="adminOverlay">
+  
+  <div class="adminBox">
+    
+    <!-- Admin Header -->
+    <div class="adminHeader">
+      <h2>🛠️ Admin Panel</h2>
+      
+      <button onclick="closeAdminPanel()">
+        ✕
+      </button>
+    </div>
+    
+    <!-- Admin Status -->
+    <div class="adminWelcome">
+      <h3>Welcome, Admin 👋</h3>
+      <p>Manage Shopora orders from here.</p>
+    </div>
+    
+    <!-- Order Statistics -->
+    <div class="adminStats">
+      
+      <div class="adminStatCard">
+        <span>📦</span>
+        <strong id="totalOrders">0</strong>
+        <small>Total Orders</small>
+      </div>
+      
+      <div class="adminStatCard">
+        <span>⏳</span>
+        <strong id="pendingOrders">0</strong>
+        <small>Pending</small>
+      </div>
+      
+      <div class="adminStatCard">
+        <span>🚚</span>
+        <strong id="shippedOrders">0</strong>
+        <small>Shipped</small>
+      </div>
+      
+      <div class="adminStatCard">
+        <span>✅</span>
+        <strong id="deliveredOrders">0</strong>
+        <small>Delivered</small>
+      </div>
+      
+    </div>
+    
+    <!-- ========================================
+     STEP 22A: ADMIN PRODUCT MANAGEMENT
+     ======================================== -->
+
+<section class="adminProductsSection">
+
+  <!-- Product management heading -->
+  <div class="adminProductsHeader">
+    <div>
+      <h3>🛍️ Manage Products</h3>
+      <p>Add, edit and remove Shopora products.</p>
+    </div>
+  </div>
+
+  <!-- Add/Edit product form -->
+  <form id="adminProductForm">
+
+    <!-- Hidden field stores product ID when editing -->
+    <input type="hidden" id="adminProductId">
+
+    <label for="adminProductName">Product Name</label>
+    <input
+      type="text"
+      id="adminProductName"
+      maxlength="120"
+      placeholder="Enter product name"
+      required
+    >
+
+    <label for="adminProductPrice">Price (৳)</label>
+    <input
+      type="number"
+      id="adminProductPrice"
+      min="0.01"
+      step="0.01"
+      placeholder="Enter price"
+      required
+    >
+
+    <label for="adminProductCategory">Category</label>
+    <input
+      type="text"
+      id="adminProductCategory"
+      maxlength="80"
+      placeholder="e.g. Electronics, Fashion"
+      required
+    >
+
+    <label for="adminProductImage">Image URL</label>
+    <input
+      type="url"
+      id="adminProductImage"
+      placeholder="https://example.com/product.jpg"
+      required
+    >
+
+    <label for="adminProductDescription">Description</label>
+    <textarea
+      id="adminProductDescription"
+      rows="3"
+      maxlength="2000"
+      placeholder="Describe the product"
+      required
+    ></textarea>
+
+    <label for="adminProductStock">Stock Quantity</label>
+    <input
+      type="number"
+      id="adminProductStock"
+      min="0"
+      step="1"
+      placeholder="Available quantity"
+      required
+    >
+
+    <!-- Form action buttons -->
+    <div class="adminProductFormButtons">
+      <button type="submit" id="adminProductSaveButton">
+        ➕ Add Product
+      </button>
+
+      <button
+        type="button"
+        id="adminProductCancelButton"
+        hidden
+      >
+        Cancel Edit
+      </button>
+    </div>
+
+    <!-- Success/error messages -->
+    <p id="adminProductMessage" role="status"></p>
+
+  </form>
+
+  <!-- Product list heading -->
+  <h4>📦 Existing Products</h4>
+
+  <!-- JavaScript will render products here -->
+  <div id="adminProductsList">
+    <p>Products will appear here.</p>
+  </div>
+
+</section>
+
+
+<!-- ========================================
+     STEP 26A: ADMIN COUPON MANAGEMENT
+     ======================================== -->
+
+<section class="adminCouponsSection">
+
+  <!-- Coupon management heading -->
+  <div class="adminCouponsHeader">
+    <h3>🏷️ Manage Coupons</h3>
+    <p>Create, edit and manage discount coupons.</p>
+  </div>
+
+  <!-- Coupon add/edit form -->
+  <form id="adminCouponForm">
+
+    <!-- Edit করার সময় Coupon ID রাখা হবে -->
+    <input type="hidden" id="adminCouponId">
+
+    <label for="adminCouponCode">Coupon Code</label>
+    <input
+      type="text"
+      id="adminCouponCode"
+      placeholder="e.g. SAVE20"
+      maxlength="40"
+      required
+    >
+
+    <!-- Discount type নির্বাচন -->
+    <label for="adminCouponType">Discount Type</label>
+    <select id="adminCouponType" required>
+      <option value="percent">Percentage (%)</option>
+      <option value="fixed">Fixed Amount (৳)</option>
+    </select>
+
+    <label for="adminCouponValue">Discount Value</label>
+    <input
+      type="number"
+      id="adminCouponValue"
+      min="0.01"
+      step="0.01"
+      placeholder="e.g. 10"
+      required
+    >
+
+    <label for="adminCouponMinOrder">Minimum Order (৳)</label>
+    <input
+      type="number"
+      id="adminCouponMinOrder"
+      min="0"
+      step="0.01"
+      value="0"
+      required
+    >
+
+    <label for="adminCouponMaxDiscount">Maximum Discount (৳)</label>
+    <input
+      type="number"
+      id="adminCouponMaxDiscount"
+      min="0"
+      step="0.01"
+      value="200"
+      required
+    >
+
+    <label for="adminCouponExpiry">Expiry Date</label>
+    <input
+      type="date"
+      id="adminCouponExpiry"
+      required
+    >
+
+    <!-- Coupon চালু বা বন্ধ করার option -->
+    <label class="adminCouponActiveLabel">
+      <input
+        type="checkbox"
+        id="adminCouponActive"
+        checked
+      >
+      Coupon Active
+    </label>
+
+    <!-- Form buttons -->
+    <div class="adminCouponButtons">
+      <button type="submit" id="adminCouponSaveButton">
+        ➕ Save Coupon
+      </button>
+
+      <button
+        type="button"
+        id="adminCouponCancelButton"
+        hidden
+      >
+        Cancel Edit
+      </button>
+    </div>
+
+    <!-- Success/error message -->
+    <p id="adminCouponMessage" role="status"></p>
+
+  </form>
+
+  <!-- Existing coupons list -->
+  <h4>📋 Existing Coupons</h4>
+
+  <div id="adminCouponsList">
+    <p>Coupons will appear here.</p>
+  </div>
+
+</section>
+
+
+<!-- ========================================
+     END STEP 26A
+     ======================================== -->
+
+
+<!-- ========================================
+     END STEP 22A
+     ======================================== -->
+    <!-- Orders Title -->
+    <h3 class="adminOrdersTitle">
+      📋 All Orders
+    </h3>
+    
+    <!-- Orders will appear here -->
+    <div id="adminOrdersList">
+      
+      <div class="ordersLoading">
+        Loading orders... ⏳
+      </div>
+      
+    </div>
+    
+  </div>
+  
+</div>
+
+
+</body>
+</html>

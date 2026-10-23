@@ -1,0 +1,4214 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #f7f7fb;
+  color: #171717;
+  padding-bottom: 80px;
+}
+
+header {
+  height: 65px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 2px 10px #ddd;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+  color: #5425d9;
+}
+
+.cart {
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.cart span {
+  background: #5425d9;
+  color: white;
+  font-size: 11px;
+  padding: 4px 7px;
+  border-radius: 20px;
+}
+
+.hero {
+  margin: 18px;
+  padding: 30px 25px;
+  border-radius: 22px;
+  color: white;
+  background: linear-gradient(135deg, #5b2be0, #7b4bea);
+}
+
+.hero p {
+  opacity: .8;
+  margin-bottom: 8px;
+}
+
+.hero h1 {
+  font-size: 31px;
+  line-height: 1.15;
+}
+
+.hero button,
+.cartBottom button {
+  margin-top: 20px;
+  border: none;
+  background: white;
+  color: #5425d9;
+  padding: 12px 22px;
+  border-radius: 12px;
+  font-weight: bold;
+}
+
+.searchBox {
+  padding: 5px 18px 15px;
+}
+
+.searchBox input {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 14px;
+  outline: none;
+  box-shadow: 0 2px 12px #ddd;
+}
+
+.categories,
+.products {
+  padding: 10px 18px;
+}
+
+h2 {
+  margin-bottom: 14px;
+}
+
+.categoryList {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+}
+
+.categoryList button {
+  border: none;
+  padding: 10px 14px;
+  border-radius: 20px;
+  background: white;
+  white-space: nowrap;
+}
+
+.productGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.product {
+  background: white;
+  border-radius: 17px;
+  padding: 10px;
+  box-shadow: 0 2px 10px #e5e5e5;
+}
+
+.product img {
+  width: 100%;
+  height: 145px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.product h3 {
+  font-size: 15px;
+  margin-top: 8px;
+}
+
+.price {
+  color: #5425d9;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.product button {
+  width: 100%;
+  border: none;
+  padding: 10px;
+  margin-top: 8px;
+  border-radius: 10px;
+  background: #5425d9;
+  color: white;
+}
+
+nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 65px;
+  background: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 -2px 10px #ddd;
+  z-index: 20;
+}
+
+nav button {
+  border: none;
+  background: none;
+  font-size: 20px;
+}
+
+nav small {
+  display: block;
+  font-size: 10px;
+}
+
+.cartPanel {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: -100%;
+  background: white;
+  z-index: 30;
+  padding: 20px;
+  border-radius: 25px 25px 0 0;
+  transition: .3s;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 -5px 30px #bbb;
+}
+
+.cartPanel.active {
+  bottom: 0;
+}
+
+.cartHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cartHeader button {
+  border: none;
+  background: #eee;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+}
+
+.cartItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.cartBottom {
+  margin-top: 20px;
+}
+
+.cartBottom button {
+  width: 100%;
+  background: #5425d9;
+  color: white;
+}
+
+.empty {
+  text-align: center;
+  padding: 30px;
+  color: #888;
+}
+.authScreen {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #5425d9, #7b4bea);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+}
+
+.authLogo {
+  text-align: center;
+  color: white;
+  margin-bottom: 25px;
+}
+
+.authLogo h1 {
+  font-size: 36px;
+  margin: 5px 0;
+}
+
+.authLogo p {
+  opacity: .8;
+}
+
+.authBox {
+  width: 100%;
+  max-width: 400px;
+  background: white;
+  padding: 25px;
+  border-radius: 25px;
+  box-shadow: 0 15px 40px #35158c;
+}
+
+.authBox h2 {
+  margin-bottom: 7px;
+}
+
+.authBox>p {
+  color: #777;
+  margin-bottom: 20px;
+}
+
+.authBox input {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 12px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  outline: none;
+  font-size: 15px;
+}
+
+.authButton {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 12px;
+  background: #5425d9;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.switchAuth {
+  text-align: center;
+  margin-top: 18px;
+  color: #777;
+}
+
+.switchAuth span {
+  color: #5425d9;
+  font-weight: bold;
+  cursor: pointer;
+}
+.detailsOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, .55);
+  z-index: 50;
+  display: none;
+  align-items: flex-end;
+}
+
+.detailsOverlay.active {
+  display: flex;
+}
+
+.detailsBox {
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: white;
+  padding: 20px;
+  border-radius: 25px 25px 0 0;
+  position: relative;
+}
+
+.closeDetails {
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: 50%;
+  background: #eee;
+  font-size: 18px;
+  z-index: 2;
+}
+
+.detailImage {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 18px;
+  margin-bottom: 18px;
+}
+
+.detailsBox h2 {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.detailPrice {
+  color: #5425d9;
+  font-size: 23px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+#detailCategory {
+  color: #777;
+}
+
+#detailDescription {
+  line-height: 1.6;
+  color: #555;
+  margin: 15px 0;
+}
+
+.quantityBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  margin: 20px 0;
+}
+
+.quantityBox button {
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 12px;
+  background: #eee;
+  font-size: 24px;
+}
+
+.quantityBox span {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.addDetailsCart {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 14px;
+  background: #5425d9;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* =========================
+   CART STEP 7
+========================= */
+
+.emptyCart {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.emptyCartIcon {
+  font-size: 60px;
+  margin-bottom: 15px;
+}
+
+.emptyCart h3 {
+  margin: 10px 0;
+  font-size: 20px;
+}
+
+.emptyCart p {
+  color: #777;
+}
+
+
+/* Cart item */
+
+.cartItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  
+  padding: 14px 0;
+  
+  border-bottom: 1px solid #eee;
+}
+
+
+.cartItem img {
+  width: 75px;
+  height: 75px;
+  
+  object-fit: cover;
+  
+  border-radius: 12px;
+  
+  background: #f5f5f5;
+}
+
+
+.cartItemInfo {
+  flex: 1;
+}
+
+
+.cartItemInfo h3 {
+  font-size: 15px;
+  
+  margin: 0 0 5px;
+  
+  line-height: 1.3;
+}
+
+
+.cartPrice {
+  margin: 0 0 8px;
+  
+  font-weight: 600;
+  
+  color: #6c3cff;
+}
+
+
+.cartQuantity {
+  display: flex;
+  
+  align-items: center;
+  
+  gap: 10px;
+}
+
+
+.cartQuantity button {
+  width: 30px;
+  height: 30px;
+  
+  border: none;
+  
+  border-radius: 8px;
+  
+  background: #f0ecff;
+  
+  color: #6c3cff;
+  
+  font-size: 20px;
+  
+  cursor: pointer;
+}
+
+
+.cartQuantity span {
+  min-width: 20px;
+  
+  text-align: center;
+  
+  font-weight: 600;
+}
+
+
+.cartItemRight {
+  display: flex;
+  
+  flex-direction: column;
+  
+  align-items: flex-end;
+  
+  gap: 12px;
+}
+
+
+.cartItemRight strong {
+  font-size: 14px;
+}
+
+
+.deleteCart {
+  border: none;
+  
+  background: #fff0f0;
+  
+  border-radius: 8px;
+  
+  padding: 7px;
+  
+  cursor: pointer;
+}
+
+
+/* Cart summary */
+
+.cartSummary {
+  margin-top: 18px;
+  
+  padding: 18px;
+  
+  background: #f8f7ff;
+  
+  border-radius: 15px;
+}
+
+
+.summaryRow {
+  display: flex;
+  
+  justify-content: space-between;
+  
+  margin-bottom: 12px;
+  
+  font-size: 15px;
+}
+
+
+.deliveryHint {
+  font-size: 12px;
+  
+  color: #777;
+  
+  margin: 8px 0;
+}
+
+
+.freeDelivery {
+  font-size: 13px;
+  
+  color: #159447;
+  
+  font-weight: 600;
+  
+  margin: 8px 0;
+}
+
+
+.grandTotal {
+  display: flex;
+  
+  justify-content: space-between;
+  
+  align-items: center;
+  
+  border-top: 1px solid #ddd;
+  
+  padding-top: 15px;
+  
+  margin-top: 12px;
+  
+  font-size: 18px;
+}
+
+
+.grandTotal strong {
+  color: #6c3cff;
+}
+/* =========================
+   CHECKOUT
+========================= */
+
+.checkoutOverlay {
+  position: fixed;
+  inset: 0;
+  
+  background: rgba(0, 0, 0, 0.55);
+  
+  display: none;
+  
+  align-items: center;
+  justify-content: center;
+  
+  padding: 20px;
+  
+  z-index: 99999;
+}
+
+.checkoutOverlay.active {
+  display: flex;
+}
+
+.checkoutBox {
+  width: 100%;
+  max-width: 480px;
+  
+  max-height: 90vh;
+  overflow-y: auto;
+  
+  background: white;
+  
+  border-radius: 20px;
+  
+  padding: 20px;
+  
+  box-sizing: border-box;
+}
+
+.checkoutHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.checkoutHeader button {
+  border: none;
+  background: #eee;
+  
+  width: 36px;
+  height: 36px;
+  
+  border-radius: 50%;
+  
+  font-size: 18px;
+}
+
+.checkoutBox input,
+.checkoutBox textarea {
+  width: 100%;
+  box-sizing: border-box;
+  
+  padding: 13px;
+  
+  margin: 7px 0;
+  
+  border: 1px solid #ddd;
+  
+  border-radius: 10px;
+  
+  font-size: 15px;
+}
+
+.placeOrderBtn {
+  width: 100%;
+  
+  border: none;
+  
+  padding: 15px;
+  
+  margin-top: 15px;
+  
+  border-radius: 12px;
+  
+  background: #6c3cff;
+  
+  color: white;
+  
+  font-size: 16px;
+  
+  font-weight: bold;
+}
+
+.checkoutSummaryBox {
+  background: #f7f5ff;
+  
+  padding: 15px;
+  
+  border-radius: 12px;
+  
+  margin-top: 10px;
+}
+
+.checkoutSummaryRow {
+  display: flex;
+  justify-content: space-between;
+  
+  margin: 10px 0;
+}
+
+.checkoutGrandTotal {
+  display: flex;
+  justify-content: space-between;
+  
+  border-top: 1px solid #ddd;
+  
+  padding-top: 12px;
+  
+  margin-top: 12px;
+  
+  font-size: 18px;
+}
+
+.successBox {
+  width: 90%;
+  max-width: 400px;
+  
+  background: white;
+  
+  border-radius: 20px;
+  
+  padding: 30px;
+  
+  text-align: center;
+}
+
+.successIcon {
+  font-size: 55px;
+  color: green;
+}
+
+
+/* =========================
+   MY ORDERS
+========================= */
+
+/* প্রতিটি order-এর card */
+.orderCard {
+  background: #f8f7ff;
+  
+  border-radius: 15px;
+  
+  padding: 16px;
+  
+  margin-bottom: 15px;
+}
+
+
+/* Order ID */
+.orderId {
+  font-size: 12px;
+  
+  color: #777;
+  
+  margin-bottom: 10px;
+  
+  word-break: break-all;
+}
+
+
+/* Order-এর total */
+.orderTotal {
+  font-size: 18px;
+  
+  font-weight: bold;
+  
+  color: #6c3cff;
+  
+  margin: 10px 0;
+}
+
+
+/* Order status */
+.orderStatus {
+  display: inline-block;
+  
+  padding: 7px 12px;
+  
+  border-radius: 20px;
+  
+  background: #fff3cd;
+  
+  color: #856404;
+  
+  font-size: 13px;
+  
+  font-weight: 600;
+}
+
+
+/* Order date */
+.orderDate {
+  font-size: 12px;
+  
+  color: #777;
+  
+  margin-top: 8px;
+}
+
+
+/* Order item */
+.orderProduct {
+  display: flex;
+  
+  align-items: center;
+  
+  gap: 10px;
+  
+  padding: 8px 0;
+  
+  border-bottom: 1px solid #eee;
+}
+
+
+.orderProduct img {
+  width: 50px;
+  
+  height: 50px;
+  
+  object-fit: cover;
+  
+  border-radius: 8px;
+}
+
+
+.orderProductInfo {
+  flex: 1;
+}
+
+
+.orderProductInfo h4 {
+  margin: 0;
+  
+  font-size: 14px;
+}
+
+
+.orderProductInfo p {
+  margin: 4px 0 0;
+  
+  font-size: 12px;
+  
+  color: #777;
+}
+
+
+/* Loading text */
+.ordersLoading {
+  text-align: center;
+  
+  padding: 30px;
+  
+  color: #777;
+}
+
+
+/* Empty orders */
+.emptyOrders {
+  text-align: center;
+  
+  padding: 40px 20px;
+}
+
+
+.emptyOrdersIcon {
+  font-size: 55px;
+  
+  margin-bottom: 10px;
+}
+
+
+
+/* =========================
+   ADMIN PANEL
+========================= */
+
+.adminOverlay {
+  position: fixed;
+  inset: 0;
+  
+  background: rgba(0, 0, 0, 0.6);
+  
+  display: none;
+  
+  align-items: center;
+  justify-content: center;
+  
+  padding: 15px;
+  
+  z-index: 100000;
+}
+
+/* Admin panel open হলে */
+.adminOverlay.active {
+  display: flex;
+}
+
+/* Main admin box */
+.adminBox {
+  width: 100%;
+  max-width: 700px;
+  
+  max-height: 92vh;
+  
+  overflow-y: auto;
+  
+  background: white;
+  
+  border-radius: 20px;
+  
+  padding: 20px;
+  
+  box-sizing: border-box;
+}
+
+/* Header */
+.adminHeader {
+  display: flex;
+  
+  justify-content: space-between;
+  
+  align-items: center;
+}
+
+.adminHeader h2 {
+  margin: 0;
+}
+
+.adminHeader button {
+  width: 36px;
+  height: 36px;
+  
+  border: none;
+  
+  border-radius: 50%;
+  
+  background: #eee;
+  
+  font-size: 18px;
+}
+
+/* Welcome box */
+.adminWelcome {
+  background: #f5f2ff;
+  
+  padding: 15px;
+  
+  border-radius: 15px;
+  
+  margin-top: 15px;
+}
+
+.adminWelcome h3 {
+  margin: 0 0 5px;
+}
+
+.adminWelcome p {
+  margin: 0;
+  
+  color: #777;
+}
+
+/* Statistics */
+.adminStats {
+  display: grid;
+  
+  grid-template-columns: repeat(2, 1fr);
+  
+  gap: 10px;
+  
+  margin-top: 15px;
+}
+
+.adminStatCard {
+  background: #f8f8f8;
+  
+  border-radius: 15px;
+  
+  padding: 15px;
+  
+  text-align: center;
+}
+
+.adminStatCard span {
+  display: block;
+  
+  font-size: 25px;
+  
+  margin-bottom: 5px;
+}
+
+.adminStatCard strong {
+  display: block;
+  
+  font-size: 22px;
+}
+
+.adminStatCard small {
+  color: #777;
+}
+
+/* Orders title */
+.adminOrdersTitle {
+  margin-top: 25px;
+}
+
+/* Mobile */
+@media (max-width: 500px) {
+  
+  .adminBox {
+    padding: 15px;
+  }
+  
+  .adminStats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+}
+
+/* ========================================
+   PREMIUM PROFILE SIDE PAGE
+======================================== */
+
+/* Main profile page */
+#profilePage {
+
+  /* Full screen */
+  position: fixed;
+
+  top: 0;
+  right: 0;
+
+  width: 100%;
+  max-width: 430px;
+
+  height: 100vh;
+
+  /* Premium background */
+  background: #f7f7fb;
+
+  /* Above everything */
+  z-index: 99998;
+
+  /* Initially outside screen */
+  transform: translateX(100%);
+
+  /* Smooth right-to-left animation */
+  transition:
+    transform 0.38s
+    cubic-bezier(.4, 0, .2, 1);
+
+  /* Scroll */
+  overflow-y: auto;
+
+  box-shadow:
+    -12px 0 40px rgba(0, 0, 0, .18);
+
+  box-sizing: border-box;
+}
+
+
+/* Profile open state */
+#profilePage.profileOpen {
+
+  /* Slide into screen */
+  transform: translateX(0);
+}
+
+
+/* ========================================
+   PROFILE HEADER
+======================================== */
+
+.premiumProfileHeader {
+
+  position: relative;
+
+  padding: 55px 25px 35px;
+
+  text-align: center;
+
+  color: white;
+
+  /* Premium gradient */
+  background:
+    linear-gradient(
+      135deg,
+      #6c3cff,
+      #8f5cff,
+      #4f24d8
+    );
+
+  border-radius:
+    0 0 30px 30px;
+
+  box-shadow:
+    0 10px 30px
+    rgba(108, 60, 255, .25);
+}
+
+
+/* Decorative circle */
+.premiumProfileHeader::before {
+
+  content: "";
+
+  position: absolute;
+
+  width: 170px;
+  height: 170px;
+
+  border-radius: 50%;
+
+  background:
+    rgba(255,255,255,.08);
+
+  top: -70px;
+  right: -50px;
+}
+
+
+/* ========================================
+   CLOSE BUTTON
+======================================== */
+
+.profileCloseBtn {
+
+  position: absolute;
+
+  top: 18px;
+  left: 18px;
+
+  width: 40px;
+  height: 40px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background:
+    rgba(255,255,255,.18);
+
+  color: white;
+
+  font-size: 18px;
+
+  cursor: pointer;
+
+  backdrop-filter: blur(10px);
+
+  transition: .2s;
+}
+
+
+.profileCloseBtn:active {
+
+  transform: scale(.9);
+}
+
+
+/* ========================================
+   AVATAR
+======================================== */
+
+.premiumAvatar {
+
+  width: 88px;
+  height: 88px;
+
+  margin: 0 auto 15px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: white;
+
+  font-size: 42px;
+
+  box-shadow:
+    0 10px 30px
+    rgba(0,0,0,.2);
+
+  border: 4px solid
+    rgba(255,255,255,.5);
+}
+
+
+/* Profile name */
+.premiumProfileHeader h2 {
+
+  margin: 0;
+
+  font-size: 23px;
+
+  font-weight: 700;
+}
+
+
+/* Email */
+.premiumProfileHeader p {
+
+  margin: 7px 0 0;
+
+  font-size: 14px;
+
+  opacity: .85;
+
+  word-break: break-word;
+}
+
+
+/* ========================================
+   PROFILE MENU
+======================================== */
+
+.profileMenu {
+
+  padding: 22px 16px;
+}
+
+
+/* Each menu button */
+.profileMenuItem {
+
+  width: 100%;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+
+  border: none;
+
+  background: white;
+
+  padding: 17px;
+
+  margin-bottom: 12px;
+
+  border-radius: 17px;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 5px 20px
+    rgba(0,0,0,.06);
+
+  transition:
+    transform .2s,
+    box-shadow .2s;
+}
+
+
+/* Touch effect */
+.profileMenuItem:active {
+
+  transform: scale(.97);
+
+  box-shadow:
+    0 2px 10px
+    rgba(0,0,0,.08);
+}
+
+
+/* ========================================
+   MENU ICON
+======================================== */
+
+.profileMenuIcon {
+
+  width: 48px;
+  height: 48px;
+
+  flex-shrink: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 14px;
+
+  background: #f1edff;
+
+  font-size: 23px;
+}
+
+
+/* ========================================
+   MENU TEXT
+======================================== */
+
+.profileMenuText {
+
+  flex: 1;
+}
+
+
+.profileMenuText strong {
+
+  display: block;
+
+  color: #222;
+
+  font-size: 16px;
+
+  margin-bottom: 4px;
+}
+
+
+.profileMenuText span {
+
+  display: block;
+
+  color: #888;
+
+  font-size: 12px;
+}
+
+
+/* ========================================
+   ARROW
+======================================== */
+
+.profileArrow {
+
+  font-size: 28px;
+
+  color: #aaa;
+
+  line-height: 1;
+}
+
+
+/* ========================================
+   LOGOUT STYLE
+======================================== */
+
+.logoutItem {
+
+  margin-top: 8px;
+
+  border: 1px solid
+    #ffe1e1;
+}
+
+
+.logoutItem .profileMenuIcon {
+
+  background: #fff0f0;
+}
+
+
+.logoutItem .profileMenuText strong {
+
+  color: #e53935;
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 500px) {
+
+  #profilePage {
+
+    max-width: 100%;
+
+  }
+
+}
+
+/* ========================================
+   ADMIN ORDER STATUS
+   ======================================== */
+
+/* Status box */
+.adminStatusBox {
+  margin-top: 16px;
+  padding: 14px;
+  background: #f7f8fc;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+}
+
+/* Status label */
+.adminStatusBox label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #6b7280;
+}
+
+/* Status dropdown */
+.adminStatusBox select {
+  width: 100%;
+  padding: 12px 14px;
+  
+  border: 1px solid #dfe3ea;
+  border-radius: 12px;
+  
+  background: white;
+  
+  font-size: 14px;
+  font-weight: 700;
+  
+  color: #222;
+  
+  outline: none;
+  
+  cursor: pointer;
+  
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/* Dropdown focus */
+.adminStatusBox select:focus {
+  border-color: #111827;
+  
+  box-shadow:
+    0 0 0 3px rgba(17, 24, 39, 0.08);
+}
+
+
+/* ========================================
+   ORDER STATUS BADGE
+   ======================================== */
+
+.orderStatus {
+  display: inline-flex;
+  
+  margin-top: 12px;
+  
+  padding: 7px 12px;
+  
+  border-radius: 999px;
+  
+  background: #eef2ff;
+  
+  color: #4338ca;
+  
+  font-size: 12px;
+  
+  font-weight: 800;
+  
+  text-transform: capitalize;
+}
+
+
+/* ========================================
+   ADMIN ORDER CARD IMPROVEMENT
+   ======================================== */
+
+.adminBox .orderCard {
+  margin-bottom: 16px;
+  
+  padding: 18px;
+  
+  background: #ffffff;
+  
+  border: 1px solid #e8eaf0;
+  
+  border-radius: 18px;
+  
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.06);
+  
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+/* Card hover */
+.adminBox .orderCard:hover {
+  transform: translateY(-2px);
+  
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.09);
+}
+
+
+/* Order ID */
+.adminBox .orderId {
+  margin-bottom: 12px;
+  
+  font-size: 12px;
+  
+  font-weight: 700;
+  
+  color: #6b7280;
+  
+  word-break: break-all;
+}
+
+
+/* Order total */
+.adminBox .orderTotal {
+  margin-top: 14px;
+  
+  font-size: 18px;
+  
+  font-weight: 800;
+  
+  color: #111827;
+}
+
+
+/* Order date */
+.adminBox .orderDate {
+  margin-top: 10px;
+  
+  font-size: 12px;
+  
+  color: #9ca3af;
+}
+
+
+/* ========================================
+   MOBILE RESPONSIVE
+   ======================================== */
+
+@media (max-width: 480px) {
+  
+  .adminStatusBox {
+    padding: 12px;
+  }
+  
+  .adminStatusBox select {
+    padding: 11px 12px;
+    
+    font-size: 13px;
+  }
+  
+  .adminBox .orderCard {
+    padding: 15px;
+    
+    border-radius: 16px;
+  }
+  
+  .adminBox .orderTotal {
+    font-size: 16px;
+  }
+  
+}
+
+/* ========================================
+   CUSTOMER ORDER STATUS
+   ======================================== */
+
+#ordersList .orderStatus {
+  display: inline-flex;
+  
+  align-items: center;
+  
+  margin-top: 12px;
+  
+  padding: 7px 13px;
+  
+  border-radius: 999px;
+  
+  background: #f0fdf4;
+  
+  color: #15803d;
+  
+  font-size: 12px;
+  
+  font-weight: 800;
+  
+  text-transform: capitalize;
+}
+/* ========================================
+   PAYMENT METHOD
+======================================== */
+
+.paymentMethods {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 12px;
+
+  margin-bottom: 22px;
+}
+
+
+/* Payment option */
+
+.paymentOption {
+  display: block;
+
+  padding: 14px;
+
+  background: #ffffff;
+
+  border: 1.5px solid #e5e7eb;
+
+  border-radius: 16px;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+/* Hover */
+
+.paymentOption:hover {
+  border-color: #111827;
+
+  transform: translateY(-1px);
+}
+
+
+/* Selected option */
+
+.paymentOption:has(
+  input:checked
+) {
+  border-color: #111827;
+
+  box-shadow:
+    0 5px 18px rgba(0, 0, 0, 0.08);
+}
+
+
+/* Radio */
+
+.paymentOption input {
+  display: none;
+}
+
+
+/* Content */
+
+.paymentOptionContent {
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+}
+
+
+/* Icon */
+
+.paymentIcon {
+  width: 44px;
+
+  height: 44px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  background: #f3f4f6;
+
+  border-radius: 12px;
+
+  font-size: 22px;
+}
+
+
+/* Text */
+
+.paymentOptionContent strong {
+  display: block;
+
+  font-size: 14px;
+
+  color: #111827;
+
+  margin-bottom: 4px;
+}
+
+
+.paymentOptionContent small {
+  display: block;
+
+  font-size: 12px;
+
+  color: #6b7280;
+}
+
+
+/* Disabled payment */
+
+.disabledPayment {
+  opacity: 0.55;
+
+  cursor: not-allowed;
+}
+
+
+.disabledPayment:hover {
+  border-color: #e5e7eb;
+
+  transform: none;
+}
+
+
+/* ========================================
+   PAYMENT STATUS BADGE
+======================================== */
+
+.paymentStatusBadge {
+  display: inline-flex;
+
+  align-items: center;
+
+  padding: 6px 10px;
+
+  margin-top: 8px;
+
+  border-radius: 999px;
+
+  background: #fff7ed;
+
+  color: #c2410c;
+
+  font-size: 11px;
+
+  font-weight: 800;
+}
+
+
+/* Mobile */
+
+@media (max-width: 480px) {
+
+  .paymentOption {
+    padding: 12px;
+  }
+
+  .paymentIcon {
+    width: 40px;
+    height: 40px;
+  }
+
+}
+
+/* ========================================
+   ADMIN PAYMENT STATUS
+======================================== */
+
+.adminPaymentBox {
+
+  margin-top: 12px;
+
+  padding: 14px;
+
+  background: #f7f8fc;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 14px;
+}
+
+
+/* Payment label */
+
+.adminPaymentBox label {
+
+  display: block;
+
+  margin-bottom: 8px;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  color: #6b7280;
+}
+
+
+/* Payment select */
+
+.adminPaymentBox select {
+
+  width: 100%;
+
+  padding: 12px 14px;
+
+  border: 1px solid #dfe3ea;
+
+  border-radius: 12px;
+
+  background: #ffffff;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  color: #222;
+
+  outline: none;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+/* Focus */
+
+.adminPaymentBox select:focus {
+
+  border-color: #111827;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(17, 24, 39, 0.08);
+}
+
+
+/* Mobile */
+
+@media (max-width: 480px) {
+
+  .adminPaymentBox {
+
+    padding: 12px;
+
+  }
+
+
+  .adminPaymentBox select {
+
+    padding: 11px 12px;
+
+    font-size: 13px;
+
+  }
+
+}
+
+/* ========================================
+   CUSTOMER PAYMENT STATUS
+======================================== */
+
+.customerPaymentStatus {
+  
+  display: flex;
+  
+  align-items: center;
+  
+  justify-content: space-between;
+  
+  gap: 12px;
+  
+  margin-top: 10px;
+  
+  padding: 11px 13px;
+  
+  background: #f8fafc;
+  
+  border: 1px solid #e5e7eb;
+  
+  border-radius: 12px;
+  
+}
+
+
+/* Payment label */
+
+.paymentLabel {
+  
+  font-size: 13px;
+  
+  font-weight: 700;
+  
+  color: #6b7280;
+}
+
+
+/* Payment value */
+
+.paymentValue {
+  
+  font-size: 13px;
+  
+  font-weight: 800;
+  
+  color: #111827;
+  
+}
+
+
+/* Mobile */
+
+@media (max-width: 480px) {
+  
+  .customerPaymentStatus {
+    
+    padding: 10px 12px;
+    
+  }
+  
+  .paymentLabel,
+  .paymentValue {
+    
+    font-size: 12px;
+    
+  }
+  
+}
+
+/* ========================================
+   WISHLIST ANIMATED SCREEN
+   ======================================== */
+
+#wishlistScreen {
+  /* Full screen overlay */
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  
+  /* Background */
+  background: #ffffff;
+  
+  /* Initially hidden */
+  display: none;
+  
+  /* Animation-এর জন্য */
+  opacity: 0;
+  transform: translateX(100%);
+  
+  /* Smooth slide + fade */
+  transition:
+    transform 0.35s ease,
+    opacity 0.35s ease;
+  
+  /* Screen-এর বাইরে content থাকলে scroll হবে */
+  overflow-y: auto;
+}
+
+
+/* Wishlist open হলে */
+#wishlistScreen.wishlistActive {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+
+/* ========================================
+   WISHLIST HEADER
+   ======================================== */
+
+#wishlistScreen .pageHeader {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  
+  padding: 16px;
+  
+  background: #ffffff;
+  border-bottom: 1px solid #eeeeee;
+}
+
+
+/* Header back button */
+#wishlistScreen .pageHeader button {
+  width: 42px;
+  height: 42px;
+  
+  border: none;
+  border-radius: 50%;
+  
+  background: #f5f5f5;
+  
+  font-size: 22px;
+  
+  cursor: pointer;
+}
+
+
+/* Wishlist title */
+#wishlistScreen .pageHeader h2 {
+  margin: 0;
+  
+  font-size: 21px;
+}
+
+
+/* ========================================
+   WISHLIST PRODUCTS
+   ======================================== */
+
+#wishlistItems {
+  padding: 18px;
+  
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+
+/* Wishlist product card */
+.wishlistProduct {
+  position: relative;
+  
+  animation: wishlistCardIn 0.4s ease both;
+}
+
+
+/* Product card animation */
+@keyframes wishlistCardIn {
+  
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+  }
+  
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  
+}
+
+
+/* Empty wishlist */
+#wishlistItems .empty {
+  grid-column: 1 / -1;
+  
+  text-align: center;
+  
+  padding: 60px 20px;
+  
+  color: #777;
+  
+  font-size: 16px;
+}
+
+
+/* Mobile responsive */
+@media (max-width: 420px) {
+  
+  #wishlistItems {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 14px;
+  }
+  
+}
+/* ========================================
+   PREMIUM WISHLIST CARDS
+   ======================================== */
+
+.wishlistProduct {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  
+  background: #ffffff;
+  border: 1px solid #eeeeee;
+  
+  padding: 10px;
+  
+  box-shadow:
+    0 5px 18px rgba(0, 0, 0, 0.07);
+  
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+
+/* Card touch করলে একটু উপরে উঠবে */
+.wishlistProduct:active {
+  transform: scale(0.97);
+}
+
+
+/* Wishlist product image */
+.wishlistProduct img {
+  width: 100%;
+  height: 150px;
+  
+  object-fit: cover;
+  
+  border-radius: 12px;
+  
+  display: block;
+}
+
+
+/* Product name */
+.wishlistProduct h3 {
+  margin: 10px 4px 5px;
+  
+  font-size: 15px;
+  
+  line-height: 1.3;
+}
+
+
+/* Product price */
+.wishlistProduct .price {
+  margin: 0 4px 10px;
+  
+  font-size: 17px;
+  font-weight: 700;
+}
+
+
+/* Wishlist buttons */
+.wishlistProduct button {
+  width: 100%;
+  
+  border: none;
+  border-radius: 10px;
+  
+  padding: 10px 8px;
+  
+  margin-top: 6px;
+  
+  font-size: 13px;
+  font-weight: 600;
+  
+  cursor: pointer;
+}
+
+
+/* Mobile image height */
+@media (max-width: 420px) {
+  
+  .wishlistProduct img {
+    height: 125px;
+  }
+  
+}
+
+/* ========================================
+   WISHLIST REMOVE ANIMATION
+   ======================================== */
+
+.wishlistProduct.removing {
+  /* Card ছোট ও fade হবে */
+  opacity: 0;
+  transform: translateX(80px) scale(0.9);
+  
+  /* Smooth animation */
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+}
+
+/* ========================================
+   PREMIUM EMPTY WISHLIST
+   ======================================== */
+
+.wishlistEmpty {
+  grid-column: 1 / -1;
+  
+  min-height: 55vh;
+  
+  display: flex;
+  flex-direction: column;
+  
+  align-items: center;
+  justify-content: center;
+  
+  text-align: center;
+  
+  padding: 30px 20px;
+  
+  animation: wishlistEmptyIn 0.45s ease;
+}
+
+
+/* Heart icon */
+.wishlistEmptyIcon {
+  width: 80px;
+  height: 80px;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  border-radius: 50%;
+  
+  background: #fff1f2;
+  
+  font-size: 38px;
+  
+  margin-bottom: 18px;
+  
+  animation: heartFloat 2s ease-in-out infinite;
+}
+
+
+/* Empty title */
+.wishlistEmpty h3 {
+  margin: 0 0 8px;
+  
+  font-size: 21px;
+}
+
+
+/* Empty description */
+.wishlistEmpty p {
+  max-width: 280px;
+  
+  margin: 0 0 20px;
+  
+  color: #777;
+  
+  line-height: 1.5;
+}
+
+
+/* Start shopping */
+.wishlistShopButton {
+  border: none;
+  
+  border-radius: 12px;
+  
+  padding: 12px 22px;
+  
+  font-size: 14px;
+  font-weight: 700;
+  
+  cursor: pointer;
+  
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+
+/* Button press effect */
+.wishlistShopButton:active {
+  transform: scale(0.95);
+}
+
+
+/* Empty state animation */
+@keyframes wishlistEmptyIn {
+  
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+}
+
+
+/* Floating heart */
+@keyframes heartFloat {
+  
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  
+  50% {
+    transform: translateY(-7px);
+  }
+  
+}
+
+/* ========================================
+   STEP 20B
+   PREMIUM ORDER TRACKING TIMELINE
+   ======================================== */
+
+/* পুরো tracking section */
+.orderTracking {
+  position: relative;
+  margin: 20px 0;
+  padding: 8px 0 8px 6px;
+}
+
+/* প্রতিটি tracking step */
+.trackingStep {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  min-height: 72px;
+  padding-bottom: 18px;
+
+  /* শুরুতে একটু faded থাকবে */
+  opacity: 0.45;
+
+  /* Smooth animation */
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+/* Active step */
+.trackingStep.active {
+  opacity: 1;
+  transform: translateX(2px);
+}
+
+
+/* ========================================
+   CONNECTING LINE
+   ======================================== */
+
+/*
+  প্রতিটি step-এর icon-এর মাঝখান দিয়ে
+  নিচের step পর্যন্ত line যাবে
+*/
+.trackingStep:not(:last-child)::before {
+  content: "";
+
+  position: absolute;
+
+  left: 19px;
+  top: 42px;
+
+  width: 3px;
+  height: calc(100% - 28px);
+
+  border-radius: 10px;
+
+  background: #e4e4e4;
+
+  transition:
+    background 0.4s ease;
+}
+
+
+/*
+  Active step-এর পরের connecting line
+  active হলে line highlight হবে
+*/
+.trackingStep.active:not(:last-child)::before {
+  background: #6c3df4;
+}
+
+
+/* ========================================
+   TRACKING ICON
+   ======================================== */
+
+.trackingIcon {
+  position: relative;
+
+  z-index: 2;
+
+  width: 40px;
+  height: 40px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #eeeeee;
+
+  font-size: 19px;
+
+  border: 3px solid #ffffff;
+
+  
+}
+
+/* Notification Button */
+.notificationBtn {
+  position: relative;
+  border: none;
+  background: #f1eaff;
+  border-radius: 70%;
+  width: 44px;
+  height: 44px;
+  font-size: 21px;
+  cursor: pointer;
+  transition: transform 0.25s ease;
+  margin-left: 155px;
+}
+
+.notificationBtn:hover {
+  transform: scale(1.08);
+}
+
+#notificationCount {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: #ef4444;
+  color: white;
+  font-size: 10px;
+  min-width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Notification Panel */
+.notificationPanel {
+  position: fixed;
+  top: 75px;
+  right: 16px;
+  width: min(340px, calc(100vw - 32px));
+  max-height: 70vh;
+  overflow-y: auto;
+  background: white;
+  color: #222;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 12px 40px #0002;
+  z-index: 9999;
+  
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: 0.25s ease;
+}
+
+.notificationPanel.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.notificationHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.notificationHeader h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.notificationHeader button {
+  border: none;
+  background: #f3f4f6;
+  border-radius: 8px;
+  padding: 7px 10px;
+  cursor: pointer;
+}
+
+.emptyNotifications {
+  text-align: center;
+  color: #888;
+  padding: 24px 8px;
+}
+
+.notificationItem {
+  padding: 12px;
+  margin-bottom: 8px;
+  background: #f7f5ff;
+  border-radius: 12px;
+  border-left: 3px solid #7547f8;
+}
+
+.notificationItem p {
+  margin: 5px 0 0;
+  font-size: 13px;
+  color: #666;
+}
+
+/* STEP 22D: PREMIUM NOTIFICATIONS */
+
+.notificationItem {
+  position: relative;
+  padding: 14px;
+  margin-bottom: 10px;
+  border-radius: 14px;
+  background: #f7f5ff;
+  border-left: 4px solid #7547f8;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+  animation: notificationEnter 0.35s ease;
+}
+
+.notificationItem:hover {
+  transform: translateX(3px);
+  box-shadow: 0 5px 16px #7547f81c;
+}
+
+.notificationItem strong {
+  display: block;
+  color: #29213f;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.notificationItem p {
+  margin: 0 0 8px;
+  color: #686176;
+  font-size: 13px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.notificationItem small {
+  color: #928aa3;
+  font-size: 11px;
+}
+
+@keyframes notificationEnter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.notificationBtn {
+  box-shadow: 0 3px 12px #7547f81a;
+}
+
+#notificationCount {
+  border: 2px solid white;
+  font-weight: 700;
+}
+
+@media (max-width: 480px) {
+  .notificationPanel {
+    right: 10px;
+    top: 65px;
+    width: calc(100vw - 20px);
+    max-height: 75vh;
+  }
+
+  .notificationItem {
+    padding: 12px;
+  }
+}
+
+
+.notificationHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.notificationHeader button {
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  padding: 7px 10px;
+}
+
+.notificationItem {
+  padding: 12px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.notificationItem.unread {
+  background: #e8f2ff;
+  border-left: 4px solid #2878d0;
+}
+
+.notificationItem.read {
+  background: #f5f5f5;
+  border-left: 4px solid #d5d5d5;
+}
+
+.notificationItem p {
+  margin: 6px 0;
+}
+
+.notificationItem small {
+  color: #666;
+  font-size: 12px;
+}
+
+/* Unread notification */
+.notificationItem.unread {
+  background-color: #e0edff !important;
+  border-left: 5px solid #2563eb !important;
+  font-weight: 600;
+}
+
+/* Read notification */
+.notificationItem.read {
+  background-color: #f3f4f6 !important;
+  border-left: 5px solid #cbd5e1 !important;
+  font-weight: 400;
+}
+
+/* Smooth transition */
+.notificationItem {
+  transition: background-color 0.3s ease,
+              border-color 0.3s ease;
+}
+
+
+.notificationItem.unread {
+  background: #dbeafe !important;
+  border-left: 5px solid #2563eb !important;
+}
+
+.notificationItem.read {
+  background: #f3f4f6 !important;
+  border-left: 5px solid #9ca3af !important;
+}
+
+/* Review date */
+#productReviews .reviewDate {
+  flex-shrink: 0;
+  color: #9999a8;
+  font-size: 11px;
+}
+
+/* Stars displayed on each review */
+#productReviews .reviewCardStars {
+  margin-bottom: 8px;
+  color: #f5a623;
+  font-size: 18px;
+  letter-spacing: 2px;
+}
+
+/* Review title */
+#productReviews .reviewCardTitle {
+  margin: 0 0 7px;
+  color: #28253a;
+  font-size: 14px;
+  font-weight: 750;
+  line-height: 1.5;
+}
+
+/* Review comment */
+#productReviews .reviewCardComment {
+  margin: 0;
+  color: #69697b;
+  font-size: 13px;
+  line-height: 1.75;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* Empty and loading messages */
+#productReviews .reviewPlaceholder {
+  padding: 22px 14px;
+  border: 1px dashed #dedeea;
+  border-radius: 13px;
+  background: #fafaff;
+  color: #77778a;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+#productReviews .reviewPlaceholder p {
+  margin: 4px 0;
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
+@keyframes reviewSectionIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes reviewCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========================================
+   MOBILE RESPONSIVE
+   ======================================== */
+
+@media (max-width: 420px) {
+  #productReviews {
+    padding: 16px 12px;
+    margin: 18px 0;
+    border-radius: 16px;
+  }
+
+  #productReviews .reviewHeader h3 {
+    font-size: 18px;
+  }
+
+  #productReviews .reviewSummary {
+    padding: 15px;
+  }
+
+  #productReviews #averageRating {
+    font-size: 34px;
+  }
+
+  #productReviews .reviewForm {
+    padding: 14px;
+  }
+
+  #productReviews .starPicker {
+    gap: 6px;
+  }
+
+  #productReviews .starPicker button {
+    width: 36px;
+    height: 36px;
+    font-size: 25px;
+  }
+
+  #productReviews .reviewCard {
+    padding: 12px;
+  }
+
+  #productReviews .reviewDate {
+    font-size: 10px;
+  }
+}
+
+/* যাদের reduced motion preference আছে,
+   তাদের জন্য animation বন্ধ রাখা */
+@media (prefers-reduced-motion: reduce) {
+  #productReviews,
+  #productReviews .reviewCard {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* TEST: Reviews CSS load হচ্ছে কি না */
+#productReviews {
+  background: #f3edff !important;
+  padding: 20px !important;
+  border-radius: 20px !important;
+}
+
+#productReviews #submitReviewButton {
+  background: #5425d8 !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 12px !important;
+  padding: 14px !important;
+  width: 100% !important;
+}
+
+
+/* ========================================
+   SHOPORA REVIEWS - FINAL DESIGN FIX
+   ======================================== */
+
+/* Reviews section */
+#productReviews {
+  background: #ffffff !important;
+  padding: 20px 16px !important;
+  margin: 24px 0 !important;
+  border: 1px solid #eceaf4 !important;
+  border-radius: 20px !important;
+  box-shadow: 0 8px 24px rgba(35, 25, 70, 0.06) !important;
+  color: #252238 !important;
+}
+
+/* Section headings */
+#productReviews .reviewHeader h3,
+#productReviews .reviewForm h4,
+#productReviews .reviewListSection h4 {
+  font-size: 18px !important;
+  font-weight: 800 !important;
+  margin: 0 0 10px !important;
+}
+
+/* Rating summary */
+#productReviews .reviewSummary {
+  background: #fff8e8 !important;
+  border: 1px solid #ffebbd !important;
+  border-radius: 16px !important;
+  padding: 16px !important;
+  margin: 16px 0 !important;
+}
+
+#productReviews .reviewAverage {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+#productReviews #averageRating {
+  font-size: 36px !important;
+  font-weight: 800 !important;
+}
+
+#productReviews #averageStars {
+  color: #f5a623 !important;
+  font-size: 24px !important;
+  letter-spacing: 3px !important;
+}
+
+/* Review form */
+#productReviews .reviewForm {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+  background: #faf9ff !important;
+  border: 1px solid #e9e4fb !important;
+  border-radius: 16px !important;
+  padding: 16px !important;
+  margin-bottom: 22px !important;
+}
+
+/* Rating stars */
+#productReviews .starPicker {
+  display: flex !important;
+  gap: 8px !important;
+  margin: 0 0 4px !important;
+}
+
+#productReviews .starPicker button {
+  width: 40px !important;
+  height: 40px !important;
+  padding: 0 !important;
+  border: 1px solid #f0dfb3 !important;
+  border-radius: 10px !important;
+  background: #ffffff !important;
+  color: #f5a623 !important;
+  font-size: 26px !important;
+}
+
+/* Inputs: use full width and separate rows */
+#productReviews #reviewTitle,
+#productReviews #reviewComment {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: 13px !important;
+  border: 1px solid #dedbea !important;
+  border-radius: 11px !important;
+  background: #ffffff !important;
+  color: #252238 !important;
+  font-size: 14px !important;
+  font-family: inherit !important;
+  box-sizing: border-box !important;
+}
+
+#productReviews #reviewTitle {
+  min-height: 46px !important;
+}
+
+#productReviews #reviewComment {
+  min-height: 110px !important;
+  resize: vertical !important;
+  line-height: 1.6 !important;
+}
+
+/* Submit button */
+#productReviews #submitReviewButton {
+  display: block !important;
+  width: 100% !important;
+  min-height: 48px !important;
+  margin: 0 !important;
+  padding: 13px 16px !important;
+  border: none !important;
+  border-radius: 12px !important;
+  background: linear-gradient(135deg, #7042ed, #5130ce) !important;
+  color: #ffffff !important;
+  font-size: 15px !important;
+  font-weight: 750 !important;
+  box-shadow: 0 5px 14px rgba(95, 56, 210, 0.18) !important;
+}
+
+/* Feedback message */
+#productReviews #reviewMessage {
+  margin: 0 !important;
+  font-size: 13px !important;
+  line-height: 1.5 !important;
+  overflow-wrap: anywhere !important;
+}
+
+/* Review list */
+#productReviews #reviewList {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+}
+
+#productReviews .reviewCard {
+  display: block !important;
+  padding: 15px !important;
+  border: 1px solid #eceaf4 !important;
+  border-radius: 14px !important;
+  background: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(30, 20, 60, 0.04) !important;
+  overflow-wrap: anywhere !important;
+}
+
+#productReviews .reviewCardTop {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: flex-start !important;
+  gap: 10px !important;
+  margin-bottom: 8px !important;
+}
+
+#productReviews .reviewUser {
+  font-size: 14px !important;
+  font-weight: 750 !important;
+}
+
+#productReviews .reviewDate {
+  font-size: 11px !important;
+  color: #888 !important;
+}
+
+#productReviews .reviewCardStars {
+  color: #f5a623 !important;
+  font-size: 19px !important;
+  margin-bottom: 8px !important;
+}
+
+#productReviews .reviewCardTitle {
+  font-size: 14px !important;
+  font-weight: 750 !important;
+  margin: 0 0 7px !important;
+}
+
+#productReviews .reviewCardComment {
+  font-size: 13px !important;
+  color: #686779 !important;
+  line-height: 1.7 !important;
+  margin: 0 !important;
+  white-space: pre-wrap !important;
+  overflow-wrap: anywhere !important;
+}
+
+/* Mobile layout */
+@media (max-width: 420px) {
+  #productReviews {
+    padding: 16px 12px !important;
+  }
+
+  #productReviews .reviewForm {
+    padding: 12px !important;
+  }
+
+  #productReviews .starPicker button {
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 23px !important;
+  }
+}
+
+
+/* ========================================
+   STEP 22F: ADMIN PRODUCT MANAGEMENT CSS
+   ======================================== */
+
+/* Product management section */
+.adminProductsSection {
+  margin: 22px 0;
+  padding: 18px;
+  background: #ffffff;
+  border: 1px solid #e8eaf0;
+  border-radius: 18px;
+  box-shadow: 0 5px 18px rgba(15, 23, 42, 0.05);
+}
+
+/* Section heading */
+.adminProductsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.adminProductsHeader h3 {
+  margin: 0 0 6px;
+  color: #182230;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.adminProductsHeader p {
+  margin: 0;
+  color: #667085;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* Product form layout */
+#adminProductForm {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 16px;
+  margin-bottom: 24px;
+  background: #f8faff;
+  border: 1px solid #e4e9f2;
+  border-radius: 14px;
+}
+
+#adminProductForm label {
+  margin-top: 5px;
+  color: #344054;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+#adminProductForm input,
+#adminProductForm textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 13px;
+  color: #1d2939;
+  background: #ffffff;
+  border: 1px solid #d0d5dd;
+  border-radius: 10px;
+  outline: none;
+  font: inherit;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#adminProductForm input:focus,
+#adminProductForm textarea:focus {
+  border-color: #635bff;
+  box-shadow: 0 0 0 3px rgba(99, 91, 255, 0.12);
+}
+
+#adminProductForm textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+/* Form action buttons */
+.adminProductFormButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.adminProductFormButtons button {
+  flex: 1;
+  min-height: 44px;
+  padding: 11px 14px;
+  border: none;
+  border-radius: 10px;
+  background: #635bff;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#adminProductCancelButton {
+  background: #e9edf5;
+  color: #344054;
+}
+
+.adminProductFormButtons button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+#adminProductMessage {
+  margin: 6px 0 0;
+  color: #475467;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+/* Existing product list heading */
+.adminProductsSection > h4 {
+  margin: 22px 0 14px;
+  color: #182230;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+/* Product list layout */
+#adminProductsList {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+/* Individual product card */
+.adminProductCard {
+  padding: 15px;
+  background: #ffffff;
+  border: 1px solid #e4e7ec;
+  border-radius: 13px;
+  overflow-wrap: anywhere;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.adminProductCard:hover {
+  border-color: #c7d2fe;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.07);
+}
+
+.adminProductCard h4 {
+  margin: 0 0 8px;
+  color: #182230;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.adminProductCard p {
+  margin: 0 0 14px;
+  color: #667085;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* Edit and Delete buttons */
+.adminProductCard button {
+  min-height: 39px;
+  margin: 4px 7px 0 0;
+  padding: 9px 13px;
+  border: none;
+  border-radius: 9px;
+  background: #eef2ff;
+  color: #4338ca;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.adminProductCard button:last-child {
+  background: #fff0f0;
+  color: #c62828;
+}
+
+.adminProductCard button:active {
+  transform: scale(0.97);
+}
+
+/* Mobile responsive layout */
+@media (max-width: 480px) {
+  .adminProductsSection {
+    padding: 12px;
+    border-radius: 14px;
+  }
+
+  #adminProductForm {
+    padding: 12px;
+  }
+
+  .adminProductsHeader h3 {
+    font-size: 18px;
+  }
+
+  .adminProductCard {
+    padding: 12px;
+  }
+
+  .adminProductCard button {
+    margin-right: 5px;
+    padding: 9px 10px;
+  }
+}
+
+/* ========================================
+   END STEP 22F
+   ======================================== */
+
+
+/* ========================================
+   STEP 23A: STOCK STATUS & LOW STOCK CSS
+   ======================================== */
+
+/* প্রতিটি পণ্যের স্টক স্ট্যাটাসের ডিজাইন */
+.stockStatusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  width: fit-content;
+  margin: 0 0 12px;
+  padding: 7px 11px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+/* স্টক শেষ হলে লাল রং */
+.stockOut {
+  background: #FEE2E2;
+  color: #B91C1C;
+}
+
+/* স্টক ১ থেকে ৫ পিস হলে হলুদ রং */
+.stockLow {
+  background: #FEF3C7;
+  color: #92400E;
+}
+
+/* স্টক ৫ পিসের বেশি হলে সবুজ রং */
+.stockAvailable {
+  background: #D1FAE5;
+  color: #065F46;
+}
+
+/* কম স্টকের সতর্কবার্তার বক্স */
+.lowStockAlert {
+  margin: 0 0 16px;
+  padding: 14px;
+  border: 1px solid #F59E0B;
+  border-radius: 12px;
+  background: #FFFBEB;
+  color: #92400E;
+  font-size: 14px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+/* সব পণ্যের স্টক ঠিক থাকলে সবুজ বার্তা */
+.stockAllGood {
+  margin: 0 0 16px;
+  padding: 12px;
+  border-radius: 10px;
+  background: #ECFDF5;
+  color: #065F46;
+  font-size: 13px;
+}
+
+/* ========================================
+   END STEP 23A
+   ======================================== */
+
+/* ========================================
+   STEP 25B: DISCOUNT COUPON CSS
+   ======================================== */
+
+/* Coupon section-এর মূল ডিজাইন */
+.couponSection {
+  margin: 16px 0;
+  padding: 16px;
+  background: #ffffff;
+  border: 1px solid #e4e7ec;
+  border-radius: 14px;
+}
+
+/* Coupon heading */
+.couponSection h3 {
+  margin: 0 0 12px;
+  color: #182230;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+/* Input ও Apply button পাশাপাশি রাখা */
+.couponInputRow {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+}
+
+/* Coupon code input */
+.couponInputRow input {
+  flex: 1;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid #d0d5dd;
+  border-radius: 9px;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+/* Input focus style */
+.couponInputRow input:focus {
+  outline: 2px solid #c7d2fe;
+  border-color: #635bff;
+}
+
+/* Apply button */
+.couponInputRow button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 9px;
+  background: #635bff;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Button disabled হলে */
+.couponInputRow button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Coupon message */
+#couponMessage {
+  margin: 10px 0 0;
+  font-size: 13px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+/* Applied coupon information */
+#appliedCouponInfo {
+  margin-top: 12px;
+  padding: 12px;
+  background: #ecfdf3;
+  color: #067647;
+  border-radius: 9px;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* Hidden coupon details যেন না দেখা যায় */
+#appliedCouponInfo[hidden] {
+  display: none;
+}
+
+/* ছোট মোবাইল স্ক্রিনে spacing ঠিক রাখা */
+@media (max-width: 360px) {
+  .couponSection {
+    padding: 12px;
+  }
+
+  .couponInputRow {
+    flex-direction: column;
+  }
+
+  .couponInputRow button {
+    min-height: 42px;
+  }
+}
+
+/* END STEP 25B */
+
+
+/* ========================================
+   STEP 26B: ADMIN COUPON DESIGN
+   ======================================== */
+
+/* Coupon management section */
+.adminCouponsSection {
+  margin: 20px 0;
+  padding: 18px;
+  background: #ffffff;
+  border: 1px solid #e4e7ec;
+  border-radius: 16px;
+  color: #182230;
+}
+
+/* Section heading */
+.adminCouponsHeader h3 {
+  margin: 0 0 6px;
+  font-size: 20px;
+}
+
+.adminCouponsHeader p {
+  margin: 0 0 18px;
+  color: #667085;
+  font-size: 14px;
+}
+
+/* Form labels */
+.adminCouponsSection form > label {
+  display: block;
+  margin: 14px 0 6px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Form inputs and select */
+.adminCouponsSection form > input,
+.adminCouponsSection form > select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  border: 1px solid #d0d5dd;
+  border-radius: 9px;
+  background: #ffffff;
+  color: #182230;
+  font-size: 14px;
+}
+
+/* Active checkbox */
+.adminCouponActiveLabel {
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+}
+
+.adminCouponActiveLabel input {
+  width: 18px;
+  height: 18px;
+}
+
+/* Form buttons */
+.adminCouponButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.adminCouponButtons button {
+  padding: 11px 15px;
+  border: none;
+  border-radius: 9px;
+  background: #635bff;
+  color: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#adminCouponCancelButton {
+  background: #667085;
+}
+
+.adminCouponButtons button:disabled {
+  opacity: 0.6;
+}
+
+/* Form message */
+#adminCouponMessage {
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+/* Existing coupons list */
+#adminCouponsList {
+  display: grid;
+  gap: 12px;
+  margin-top: 14px;
+  overflow-wrap: anywhere;
+}
+
+/* END STEP 26B */
+/* Premium Privacy Policy card under Admin Panel */
+.admin-privacy-link-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin: 24px 0;
+  padding: 20px;
+  background: linear-gradient(135deg, #ffffff, #f1faf5);
+  border: 1px solid #d9ebe0;
+  border-radius: 18px;
+  box-shadow: 0 6px 22px rgba(18, 90, 58, 0.08);
+}
+
+.admin-privacy-icon {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  background: #dcf6e8;
+  border-radius: 14px;
+  font-size: 24px;
+}
+
+.admin-privacy-info {
+  flex: 1;
+  min-width: 150px;
+}
+
+.admin-privacy-info h3 {
+  margin: 0 0 6px;
+  color: #14583c;
+}
+
+.admin-privacy-info p {
+  margin: 0;
+  color: #718078;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.admin-privacy-open-btn,
+.privacy-back-btn {
+  padding: 11px 15px;
+  border: none;
+  border-radius: 10px;
+  background: #087c54;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.privacy-page {
+  max-width: 850px;
+  margin: 20px auto;
+  padding: 18px;
+  color: #19372c;
+}
+
+.privacy-page[hidden] {
+  display: none !important;
+}
+
+.privacy-hero {
+  margin-top: 18px;
+  padding: 26px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #103c2c, #16845a);
+  color: white;
+}
+
+.privacy-hero h1 {
+  margin: 12px 0;
+}
+
+.privacy-document {
+  margin-top: 18px;
+  padding: 22px;
+  border: 1px solid #e0ebe5;
+  border-radius: 16px;
+  background: white;
+  color: #52665c;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+.privacy-document h2 {
+  margin-top: 24px;
+  color: #13734e;
+  font-size: 18px;
+}
+
+@media (max-width: 600px) {
+  .admin-privacy-link-card {
+    padding: 15px;
+  }
+  
+  .admin-privacy-open-btn {
+    width: 100%;
+  }
+}
+
+/* Premium Terms & Conditions card */
+.admin-terms-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin: 18px 0;
+  padding: 20px;
+  background: linear-gradient(135deg, #ffffff, #f3f7ff);
+  border: 1px solid #dce5f4;
+  border-radius: 18px;
+  box-shadow: 0 6px 22px rgba(35, 65, 120, 0.07);
+}
+
+.admin-terms-icon {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  background: #e8efff;
+  border-radius: 14px;
+  font-size: 24px;
+}
+
+.admin-terms-info {
+  flex: 1;
+  min-width: 150px;
+}
+
+.admin-terms-info h3 {
+  margin: 0 0 6px;
+  color: #243e70;
+}
+
+.admin-terms-info p {
+  margin: 0;
+  color: #6d788e;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.admin-terms-open-btn,
+.terms-back-btn {
+  padding: 11px 15px;
+  border: none;
+  border-radius: 10px;
+  background: #315cb4;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Terms page */
+.terms-page {
+  max-width: 850px;
+  margin: 20px auto;
+  padding: 18px;
+  color: #243653;
+}
+
+.terms-page[hidden] {
+  display: none !important;
+}
+
+.terms-hero {
+  margin-top: 18px;
+  padding: 26px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #203c70, #4779d4);
+  color: white;
+}
+
+.terms-hero span {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.terms-hero h1 {
+  margin: 14px 0 8px;
+  font-size: 28px;
+}
+
+.terms-document {
+  margin-top: 18px;
+  padding: 22px;
+  border: 1px solid #e0e7f1;
+  border-radius: 16px;
+  background: white;
+  color: #5a6578;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+.terms-document h2 {
+  margin-top: 24px;
+  color: #315cb4;
+  font-size: 18px;
+}
+
+@media (max-width: 600px) {
+  .admin-terms-card {
+    padding: 15px;
+  }
+  
+  .admin-terms-open-btn {
+    width: 100%;
+  }
+  
+  .terms-page {
+    padding: 12px;
+  }
+  
+  .terms-document {
+    padding: 16px;
+  }
+}
+
+/* Premium Contact Us card */
+.admin-contact-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin: 18px 0;
+  padding: 20px;
+  background: linear-gradient(135deg, #fff, #f2fbff);
+  border: 1px solid #d7eaf2;
+  border-radius: 18px;
+  box-shadow: 0 6px 22px rgba(25, 95, 120, 0.07);
+}
+
+.admin-contact-icon {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  background: #e0f5fb;
+  border-radius: 14px;
+  font-size: 24px;
+}
+
+.admin-contact-info {
+  flex: 1;
+  min-width: 150px;
+}
+
+.admin-contact-info h3 {
+  margin: 0 0 6px;
+  color: #14516b;
+}
+
+.admin-contact-info p {
+  margin: 0;
+  color: #6b7e87;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.admin-contact-open-btn,
+.contact-back-btn,
+.contact-submit-btn {
+  padding: 12px 16px;
+  border: none;
+  border-radius: 10px;
+  background: #087c8c;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Contact page */
+.contact-page {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 18px;
+  color: #193b48;
+}
+
+.contact-page[hidden] {
+  display: none !important;
+}
+
+.contact-hero {
+  margin-top: 18px;
+  padding: 28px 24px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #104b5b, #1399a4);
+  color: white;
+}
+
+.contact-hero span {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.contact-hero h1 {
+  margin: 14px 0 8px;
+  font-size: 29px;
+}
+
+.contact-hero p {
+  line-height: 1.6;
+}
+
+.contact-info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 18px 0;
+}
+
+.contact-info-card,
+.contact-form-card {
+  padding: 20px;
+  background: white;
+  border: 1px solid #dfebef;
+  border-radius: 16px;
+  box-shadow: 0 5px 18px rgba(20, 70, 85, 0.05);
+}
+
+.contact-info-card>span {
+  font-size: 25px;
+}
+
+.contact-info-card h3 {
+  color: #126b77;
+  font-size: 16px;
+}
+
+.contact-info-card p,
+.contact-form-card>p {
+  color: #6b7b80;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.contact-form-card h2 {
+  margin-top: 0;
+  color: #14516b;
+}
+
+.contact-form-card label {
+  display: block;
+  margin: 16px 0 7px;
+  font-weight: 700;
+}
+
+.contact-form-card input,
+.contact-form-card select,
+.contact-form-card textarea {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  border: 1px solid #d6e5e9;
+  border-radius: 10px;
+  background: #fbfefe;
+  color: #193b48;
+  font: inherit;
+}
+
+.contact-form-card textarea {
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.contact-submit-btn {
+  width: 100%;
+  margin-top: 18px;
+}
+
+#contactFormMessage {
+  font-size: 14px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 600px) {
+  .admin-contact-card {
+    padding: 15px;
+  }
+  
+  .admin-contact-open-btn {
+    width: 100%;
+  }
+  
+  .contact-page {
+    padding: 12px;
+  }
+  
+  .contact-info-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .contact-form-card {
+    padding: 16px;
+  }
+}
+
+
+/* Shopora FAQ card */
+.admin-faq-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin: 18px 0;
+  padding: 20px;
+  background: linear-gradient(135deg, #fff, #f8f3ff);
+  border: 1px solid #e6dcf5;
+  border-radius: 18px;
+  box-shadow: 0 6px 22px rgba(90, 50, 130, 0.07);
+}
+
+.admin-faq-icon {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  background: #eee3ff;
+  border-radius: 14px;
+  font-size: 24px;
+}
+
+.admin-faq-info {
+  flex: 1;
+  min-width: 150px;
+}
+
+.admin-faq-info h3 {
+  margin: 0 0 6px;
+  color: #59318b;
+}
+
+.admin-faq-info p {
+  margin: 0;
+  color: #756b82;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.admin-faq-card button,
+.faq-back-btn {
+  padding: 12px 16px;
+  border: none;
+  border-radius: 10px;
+  background: #7040ad;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.faq-page {
+  max-width: 850px;
+  margin: 20px auto;
+  padding: 18px;
+  color: #302442;
+}
+
+.faq-page[hidden] {
+  display: none !important;
+}
+
+.faq-hero {
+  margin-top: 18px;
+  padding: 28px 24px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #42216b, #8c55c7);
+  color: white;
+}
+
+.faq-hero span {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.faq-hero h1 {
+  margin: 14px 0 8px;
+  font-size: 28px;
+}
+
+.faq-hero p {
+  line-height: 1.6;
+}
+
+.faq-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.faq-list details {
+  padding: 17px;
+  background: white;
+  border: 1px solid #e8e0f0;
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(60, 35, 90, 0.04);
+}
+
+.faq-list summary {
+  color: #59318b;
+  font-weight: 700;
+  cursor: pointer;
+  line-height: 1.5;
+}
+
+.faq-list details p {
+  margin: 12px 0 0;
+  color: #675d70;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+@media (max-width: 600px) {
+  .admin-faq-card {
+    padding: 15px;
+  }
+
+  .admin-faq-card button {
+    width: 100%;
+  }
+
+  .faq-page {
+    padding: 12px;
+  }
+}
+
+/* About Shopora card */
+.admin-about-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin: 18px 0;
+  padding: 20px;
+  background: linear-gradient(135deg, #fff, #fff4f9);
+  border: 1px solid #f2dce8;
+  border-radius: 18px;
+  box-shadow: 0 6px 22px rgba(140, 40, 95, 0.07);
+}
+
+.admin-about-icon {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  background: #ffe5f1;
+  border-radius: 14px;
+  font-size: 24px;
+}
+
+.admin-about-info {
+  flex: 1;
+  min-width: 150px;
+}
+
+.admin-about-info h3 {
+  margin: 0 0 6px;
+  color: #8c285f;
+}
+
+.admin-about-info p {
+  margin: 0;
+  color: #806c78;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.admin-about-card button,
+.about-back-btn,
+.about-bottom button {
+  padding: 12px 16px;
+  border: none;
+  border-radius: 10px;
+  background: #a52e70;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.about-page {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 18px;
+  color: #38283a;
+}
+
+.about-page[hidden] {
+  display: none !important;
+}
+
+.about-hero {
+  margin-top: 18px;
+  padding: 34px 25px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #542052, #bd4385);
+  color: white;
+}
+
+.about-hero > span {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.about-hero h1 {
+  margin: 18px 0 10px;
+  font-size: clamp(28px, 6vw, 42px);
+}
+
+.about-hero p {
+  line-height: 1.7;
+}
+
+.about-brand {
+  margin-top: 24px;
+  font-size: 30px;
+  font-weight: 900;
+  letter-spacing: 3px;
+}
+
+.about-brand span {
+  color: #ffd3e8;
+}
+
+.about-content {
+  margin-top: 20px;
+}
+
+.about-section {
+  margin-bottom: 14px;
+  padding: 22px;
+  background: white;
+  border: 1px solid #f0e4ed;
+  border-radius: 16px;
+}
+
+.about-symbol {
+  font-size: 27px;
+}
+
+.about-section h2,
+.about-why-title {
+  color: #8c285f;
+}
+
+.about-section p,
+.about-benefits p,
+.about-bottom p {
+  color: #766878;
+  line-height: 1.8;
+  font-size: 14px;
+}
+
+.about-why-title {
+  margin: 26px 0 14px;
+}
+
+.about-benefits {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.about-benefits > div {
+  padding: 18px;
+  background: #fff7fb;
+  border: 1px solid #f2e2eb;
+  border-radius: 15px;
+}
+
+.about-benefits span {
+  font-size: 25px;
+}
+
+.about-benefits h3 {
+  color: #8c285f;
+  font-size: 16px;
+}
+
+.about-bottom {
+  margin-top: 20px;
+  padding: 25px 20px;
+  text-align: center;
+  border-radius: 18px;
+  background: #fbedf5;
+}
+
+.about-bottom h2 {
+  color: #8c285f;
+}
+
+@media (max-width: 600px) {
+  .admin-about-card {
+    padding: 15px;
+  }
+
+  .admin-about-card button {
+    width: 100%;
+  }
+
+  .about-page {
+    padding: 12px;
+  }
+
+  .about-benefits {
+    grid-template-columns: 1fr;
+  }
+}
