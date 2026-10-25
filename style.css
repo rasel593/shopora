@@ -4212,3 +4212,470 @@ nav small {
     grid-template-columns: 1fr;
   }
 }
+
+/* Advanced Search & Filter container */
+.shopora-filters {
+  margin: 16px 0;
+  padding: 16px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  display: grid;
+  gap: 12px;
+}
+
+/* Search, category and sorting controls */
+.shopora-filters input,
+.shopora-filters select {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  background: #fff;
+  color: #222;
+  font-size: 15px;
+}
+
+/* Minimum and maximum price in one row */
+.price-filter-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+/* Clear filter button */
+#shoporaResetFilters {
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background: #222;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Result count */
+#shoporaResultCount {
+  margin: 0;
+  color: #666;
+  font-size: 13px;
+}
+
+
+/* Shopora product size and color fields */
+#adminProductSizes,
+#adminProductColors {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  margin: 6px 0 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+/* Help text under size/color inputs */
+.adminProductsSection small {
+  display: block;
+  color: #6b7280;
+  margin: 0 0 12px;
+  font-size: 12px;
+}
+
+
+/* Size and Color details in cart */
+.cartVariant {
+  margin: 4px 0;
+  color: #555;
+  font-size: 13px;
+}
+
+
+/* Size and Color shown in order details */
+.orderProductVariant {
+  margin: 4px 0;
+  font-size: 13px;
+  color: #555;
+}
+
+
+/* =====================================
+   SHOPORA - PRODUCT SIZE & COLOR DESIGN
+   ===================================== */
+
+/* Size ও Color section */
+#detailSizeSection,
+#detailColorSection {
+  margin: 18px 0;
+  padding: 16px;
+  background: #f8f7ff;
+  border: 1px solid #e6e0ff;
+  border-radius: 16px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* Section-এর label */
+#detailSizeSection label,
+#detailColorSection label {
+  display: block;
+  margin-bottom: 10px;
+  color: #24213b;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* Dropdown design */
+#detailSize,
+#detailColor {
+  display: block;
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 40px 12px 14px;
+  background-color: #ffffff;
+  color: #29243f;
+  border: 1.5px solid #d8d0ff;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 500;
+  outline: none;
+  box-sizing: border-box;
+  cursor: pointer;
+  appearance: auto;
+  -webkit-appearance: auto;
+  transition: border-color 0.2s ease,
+              box-shadow 0.2s ease;
+}
+
+/* Dropdown-এ focus করলে */
+#detailSize:focus,
+#detailColor:focus {
+  border-color: #673de6;
+  box-shadow: 0 0 0 3px rgba(103, 61, 230, 0.12);
+}
+
+/* Dropdown-এর option */
+#detailSize option,
+#detailColor option {
+  padding: 10px;
+  background: #ffffff;
+  color: #29243f;
+}
+
+/* মোবাইল স্ক্রিনের জন্য */
+@media (max-width: 480px) {
+  #detailSizeSection,
+  #detailColorSection {
+    margin: 14px 0;
+    padding: 14px;
+    border-radius: 14px;
+  }
+
+  #detailSize,
+  #detailColor {
+    min-height: 46px;
+    font-size: 14px;
+  }
+}
+
+
+/* Admin Order: Product Size and Color */
+.orderProductVariant {
+  display: block;
+  margin: 6px 0;
+  padding: 7px 10px;
+  background: #f5f1ff;
+  border: 1px solid #e4dcff;
+  border-radius: 8px;
+  color: #4b35a5;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.orderProductVariant strong {
+  color: #241653;
+  font-weight: 700;
+}
+
+/* Shopora Contact Buttons */
+.shopora-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+  margin: 16px;
+}
+
+.shopora-contact a {
+  display: block;
+  padding: 14px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 12px;
+}
+
+.contact-whatsapp {
+  background: #25D366;
+  color: white;
+}
+
+.contact-call {
+  background: #222222;
+  color: white;
+}
+
+
+/* Shopora Home Banner Slider */
+.shopora-banner-slider {
+  position: relative;
+  width: calc(100% - 24px);
+  margin: 12px auto 20px;
+  overflow: hidden;
+  border-radius: 20px;
+  box-sizing: border-box;
+  background: #f0eaff;
+  min-height: 205px;
+}
+
+.shopora-banner {
+  display: none;
+  min-height: 205px;
+  box-sizing: border-box;
+  padding: 24px 18px 38px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  background: linear-gradient(120deg, #f0eaff, #dcd0ff);
+  color: #26134d;
+}
+
+.shopora-banner:nth-child(2) {
+  background: linear-gradient(120deg, #fff0e6, #ffd5bd);
+  color: #692c13;
+}
+
+.shopora-banner:nth-child(3) {
+  background: linear-gradient(120deg, #e4f8ee, #bcebd4);
+  color: #124c36;
+}
+
+.shopora-banner.active {
+  display: flex;
+}
+
+.banner-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.banner-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.banner-content h2 {
+  font-size: 25px;
+  line-height: 1.15;
+  margin: 0 0 8px;
+  font-weight: 800;
+}
+
+.banner-content p {
+  font-size: 12px;
+  margin: 0 0 14px;
+}
+
+.banner-content button {
+  border: 0;
+  border-radius: 9px;
+  padding: 10px 13px;
+  background: #27134d;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.banner-emoji {
+  font-size: 58px;
+  flex-shrink: 0;
+}
+
+.shopora-banner-dots {
+  position: absolute;
+  bottom: 12px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+}
+
+.banner-dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #b5a6d7;
+  cursor: pointer;
+}
+
+.banner-dot.active {
+  width: 22px;
+  border-radius: 10px;
+  background: #49258a;
+}
+
+
+
+/* Banner Product Image */
+.banner-image {
+  width: 120px;
+  height: 145px;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 14px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+}
+
+.banner-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+
+
+
+/* =================================
+   SHOPORA SPLASH SCREEN
+   ================================= */
+
+/* পুরো Splash Screen */
+.shopora-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(
+    145deg,
+    #6c3ce9,
+    #4920a8,
+    #29105f
+  );
+
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+
+  transition:
+    opacity 0.5s ease,
+    visibility 0.5s ease;
+}
+
+/* Splash Screen লুকানোর ক্লাস */
+.shopora-splash.splash-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Logo-এর বাইরের অংশ */
+.splash-logo {
+  width: 100px;
+  height: 100px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.65);
+  border-radius: 30px;
+
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+
+  animation: shoporaLogoPop 0.8s ease;
+}
+
+/* S Logo */
+.splash-logo-icon {
+  font-size: 62px;
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1;
+}
+
+/* Shopora নাম */
+.splash-title {
+  margin: 22px 0 6px;
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+/* Tagline */
+.splash-tagline {
+  margin: 0;
+  font-size: 14px;
+  letter-spacing: 1.5px;
+  color: #e5dcff;
+}
+
+/* Loading Spinner */
+.splash-loader {
+  width: 28px;
+  height: 28px;
+
+  margin-top: 38px;
+
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+
+  animation: shoporaSpin 0.8s linear infinite;
+}
+
+/* Logo Animation */
+@keyframes shoporaLogoPop {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Spinner Animation */
+@keyframes shoporaSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* Shopora App Logo Image */
+.shopora-app-logo {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  border-radius: inherit;
+}
