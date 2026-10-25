@@ -118,14 +118,6 @@
   </div>
 </header>
 
-<section class="hero">
-  <div>
-    <p>Welcome to Shopora</p>
-    <h1>Shop More.<br>Live Better.</h1>
-    <button onclick="scrollProducts()">Shop Now</button>
-  </div>
-</section>
-
 <!-- Shopora Advanced Search & Filter -->
 <div id="shoporaFilters" class="shopora-filters">
 
@@ -137,45 +129,19 @@
     aria-label="Search products"
   >
 
-  <!-- Category filter -->
-  <select id="shoporaCategory">
-    <option value="">All Categories</option>
-  </select>
-
-  <!-- Minimum and maximum price -->
-  <div class="price-filter-row">
-    <input
-      type="number"
-      id="shoporaMinPrice"
-      placeholder="Min price ৳"
-      min="0"
-    >
-
-    <input
-      type="number"
-      id="shoporaMaxPrice"
-      placeholder="Max price ৳"
-      min="0"
-    >
-  </div>
-
-  <!-- Sort products -->
-  <select id="shoporaSort">
-    <option value="default">Sort: Default</option>
-    <option value="price-low">Price: Low to High</option>
-    <option value="price-high">Price: High to Low</option>
-    <option value="name-az">Name: A to Z</option>
-  </select>
-
-  <!-- Reset filters -->
-  <button type="button" id="shoporaResetFilters">
-    Clear Filters
-  </button>
-
   <!-- Search result count -->
   <p id="shoporaResultCount" aria-live="polite"></p>
 
 </div>
+
+<section class="hero">
+  <div>
+    <p>Welcome to Shopora</p>
+    <h1>Shop More.<br>Live Better.</h1>
+    <button onclick="scrollProducts()">Shop Now</button>
+  </div>
+</section>
+
 
 
 <!-- Shopora Home Page Banner Slider -->
