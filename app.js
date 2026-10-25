@@ -6,6 +6,140 @@ let cart = [];
 
 // বর্তমানে user-এর wishlist items
 let wishlist = [];
+
+// ================================
+// SHOPORA ADVANCED SEARCH & FILTER
+// ================================
+
+// পণ্যের তালিকা ফিল্টার করে দেখানো
+function filterShoporaProducts() {
+  // Search input থেকে লেখা নেওয়া
+  const searchText = (
+    document.getElementById("shoporaSearch")?.value || ""
+  ).trim().toLowerCase();
+
+  // নির্বাচিত category নেওয়া
+  const category = (
+    document.getElementById("shoporaCategory")?.value || ""
+  );
+
+  // সর্বনিম্ন ও সর্বোচ্চ দাম নেওয়া
+  const minValue = document.getElementById("shoporaMinPrice")?.value;
+  const maxValue = document.getElementById("shoporaMaxPrice")?.value;
+
+  const minPrice = minValue === "" || minValue == null
+    ? 0
+    : Number(minValue);
+
+  const maxPrice = maxValue === "" || maxValue == null
+    ? Infinity
+    : Number(maxValue);
+
+  // পণ্যের নাম, category ও দাম অনুযায়ী filter
+  let filtered = products.filter(product => {
+    const matchesSearch =
+      (product.name || "").toLowerCase().includes(searchText) ||
+      (product.description || "").toLowerCase().includes(searchText) ||
+      (product.category || "").toLowerCase().includes(searchText);
+
+    const matchesCategory =
+      !category || product.category === category;
+
+    const matchesMinPrice = product.price >= minPrice;
+    const matchesMaxPrice = product.price <= maxPrice;
+
+    return matchesSearch &&
+      matchesCategory &&
+      matchesMinPrice &&
+      matchesMaxPrice;
+  });
+
+  // পণ্য সাজানোর নিয়ম
+  const sort = document.getElementById("shoporaSort")?.value || "default";
+
+  if (sort === "price-low") {
+    filtered.sort((a, b) => a.price - b.price);
+  } else if (sort === "price-high") {
+    filtered.sort((a, b) => b.price - a.price);
+  } else if (sort === "name-az") {
+    filtered.sort((a, b) => a.name.localeCompare(b.name));
+  }
+
+  // আগের showProducts ব্যবহার করে ফলাফল দেখানো
+  showProducts(filtered);
+
+  // ফলাফলের সংখ্যা দেখানো
+  const count = document.getElementById("shoporaResultCount");
+  if (count) {
+    count.textContent = `Found ${filtered.length} product(s)`;
+  }
+}
+
+// Category dropdown-এ পণ্যের category যোগ করা
+function setupShoporaFilters() {
+  const categorySelect = document.getElementById("shoporaCategory");
+
+  if (categorySelect) {
+    const currentCategory = categorySelect.value;
+    const categories = [...new Set(
+      products.map(product => product.category).filter(Boolean)
+    )].sort();
+
+    categorySelect.innerHTML = '<option value="">All Categories</option>';
+
+    categories.forEach(category => {
+      const option = document.createElement("option");
+      option.value = category;
+      option.textContent = category;
+      categorySelect.appendChild(option);
+    });
+
+    categorySelect.value = categories.includes(currentCategory)
+      ? currentCategory
+      : "";
+  }
+}
+
+// Search ও Filter-এর event চালু করা
+function initializeShoporaFilters() {
+  const ids = [
+    "shoporaSearch",
+    "shoporaCategory",
+    "shoporaMinPrice",
+    "shoporaMaxPrice",
+    "shoporaSort"
+  ];
+
+  ids.forEach(id => {
+    const element = document.getElementById(id);
+
+    if (element && !element.dataset.filterReady) {
+      element.addEventListener("input", filterShoporaProducts);
+      element.addEventListener("change", filterShoporaProducts);
+      element.dataset.filterReady = "true";
+    }
+  });
+
+  const resetButton = document.getElementById("shoporaResetFilters");
+
+  if (resetButton && !resetButton.dataset.filterReady) {
+    resetButton.addEventListener("click", () => {
+      document.getElementById("shoporaSearch").value = "";
+      document.getElementById("shoporaCategory").value = "";
+      document.getElementById("shoporaMinPrice").value = "";
+      document.getElementById("shoporaMaxPrice").value = "";
+      document.getElementById("shoporaSort").value = "default";
+
+      filterShoporaProducts();
+    });
+
+    resetButton.dataset.filterReady = "true";
+  }
+}
+
+// পেজের HTML তৈরি হলে filter event চালু করা
+document.addEventListener("DOMContentLoaded", initializeShoporaFilters);
+
 async function loadProducts() {
   
   console.log("Loading products...");
@@ -29,15 +163,22 @@ async function loadProducts() {
       
       console.log("Product found:", data);
       
-      products.push({
-        id: item.id,
-        name: data.name || "Unnamed Product",
-        price: Number(data.price) || 0,
-        category: data.category || "Other",
-        image: data.image || "",
-        stock: Number(data.stock) || 0,
-        description: data.description || ""
-      });
+      // Firestore থেকে সব Product তথ্য লোড করা
+          products.push({
+            id: item.id,
+            name: data.name || "Unnamed Product",
+            price: Number(data.price) || 0,
+            category: data.category || "Other",
+            image: data.image || "",
+            stock: Number(data.stock) || 0,
+            description: data.description || "",
+            
+            // Product-এর Size অপশন লোড করা
+            sizes: Array.isArray(data.sizes) ? data.sizes : [],
+            
+            // Product-এর Color অপশন লোড করা
+            colors: Array.isArray(data.colors) ? data.colors : []
+          });
       
     });
     
@@ -47,6 +188,10 @@ async function loadProducts() {
     );
   
     showProducts(products);
+    
+    // পণ্য লোড হলে category ও filter আপডেট করা
+setupShoporaFilters();
+filterShoporaProducts();
     
   } catch (error) {
     
@@ -144,107 +289,100 @@ function showProducts(list = products) {
 }
 ;
 
+
+// ========================================
+// SHOPORA: ADD PRODUCT TO CART WITH VARIANTS
+// ========================================
 async function addToCart(id, quantity = 1) {
-  
-  console.log("ADD TO CART:", id, quantity);
-  
   const user = window.shoporaAuth.currentUser;
-  
+
   if (!user) {
     alert("Please login first.");
     return;
   }
-  
+
   const product = products.find(p => p.id === id);
-  
+
   if (!product) {
-    console.error("Product not found:", id);
     alert("Product not found.");
     return;
   }
-  
-  console.log("Product:", product);
-  console.log("User:", user.uid);
-  
+
+  // Product Details থেকে নির্বাচিত Size ও Color নেওয়া
+  let size = "";
+  let color = "";
+
+  const sizeSelect = document.getElementById("detailSize");
+  const colorSelect = document.getElementById("detailColor");
+
+  // Details-এ একই product খোলা থাকলে selection নেওয়া
+  if (typeof selectedProduct !== "undefined" &&
+      selectedProduct?.id === id) {
+    size = sizeSelect?.value || "";
+    color = colorSelect?.value || "";
+  }
+
+  // যেসব product-এ Size/Color আছে, সেগুলো নির্বাচন বাধ্যতামূলক
+  if (Array.isArray(product.sizes) &&
+      product.sizes.length > 0 && !size) {
+    alert("Please select a size.");
+    return;
+  }
+
+  if (Array.isArray(product.colors) &&
+      product.colors.length > 0 && !color) {
+    alert("Please select a color.");
+    return;
+  }
+
+  // Variant অনুযায়ী আলাদা Cart document ID তৈরি
+  const variantKey = `${size || "no-size"}_${color || "no-color"}`
+    .replace(/[\/.#$[\]]/g, "_");
+
+  const cartItemId = `${product.id}_${variantKey}`;
+
   try {
-    
     const cartRef = window.firebaseDoc(
       window.shoporaDB,
       "users",
       user.uid,
       "cart",
-      product.id
+      cartItemId
     );
-    
-    console.log("Cart reference created");
-    
-    const existing =
-      await window.firebaseGetDoc(cartRef);
-    
+
+    const existing = await window.firebaseGetDoc(cartRef);
+
     let finalQuantity = Number(quantity) || 1;
-    
+
     if (existing.exists()) {
-      
-      const oldData = existing.data();
-      
-      finalQuantity =
-        Number(oldData.quantity || 0) +
-        Number(quantity || 1);
+      finalQuantity += Number(existing.data().quantity || 0);
     }
-    
-    if (
-      product.stock &&
-      finalQuantity > Number(product.stock)
-    ) {
-      alert(
-        `Only ${product.stock} items available.`
-      );
+
+    // Stock-এর সীমা যাচাই
+    if (Number(product.stock) >= 0 &&
+        finalQuantity > Number(product.stock)) {
+      alert(`Only ${product.stock} items available.`);
       return;
     }
-    
-    await window.firebaseSetDoc(
-      cartRef,
-      {
-        productId: product.id,
-        name: product.name,
-        price: Number(product.price),
-        image: product.image || "",
-        quantity: finalQuantity
-      }
-    );
-    
-    console.log("Cart saved successfully!");
-    
+
+    // Cart-এ product ও variant-এর তথ্য সেভ
+    await window.firebaseSetDoc(cartRef, {
+      productId: product.id,
+      name: product.name,
+      price: Number(product.price),
+      image: product.image || "",
+      quantity: finalQuantity,
+      size: size,
+      color: color,
+      cartItemId: cartItemId
+    });
+
     await loadCart();
-    
+
     alert("Added to cart 🛒");
-    
   } catch (error) {
-    
-    console.error(
-      "CART ERROR MESSAGE:",
-      error?.message
-    );
-    
-    console.error(
-      "CART ERROR CODE:",
-      error?.code
-    );
-    
-    console.error(
-      "CART ERROR STACK:",
-      error?.stack
-    );
-    
-    console.error(
-      "FULL CART ERROR:",
-      error
-    );
-    
-    alert(
-      "Cart error: " +
-      (error?.message || "Unknown error")
-    );
+    console.error("CART ERROR:", error);
+    alert("Cart error: " + (error?.message || "Unknown error"));
   }
 }
 
@@ -358,11 +496,18 @@ function updateCart() {
 
         <div class="cartItemInfo">
 
-          <h3>${item.name}</h3>
-
-          <p class="cartPrice">
-            ৳${price.toLocaleString()}
-          </p>
+         
+            <h3>${item.name}</h3>
+            
+            <!-- নির্বাচিত Size দেখানো; না থাকলে লুকানো -->
+            ${item.size ? `<p class="cartVariant">Size: ${item.size}</p>` : ""}
+            
+            <!-- নির্বাচিত Color দেখানো; না থাকলে লুকানো -->
+            ${item.color ? `<p class="cartVariant">Color: ${item.color}</p>` : ""}
+            
+            <p class="cartPrice">
+              ৳${price.toLocaleString()}
+            </p>
 
           <div class="cartQuantity">
 
@@ -810,22 +955,28 @@ console.log("Firebase save function:", typeof window.firebaseSetDoc);
 
     // Prepare products
 
-    const orderItems =
-      cart.map(item => ({
+    // DEBUG: অর্ডার দেওয়ার আগে Cart-এর তথ্য পরীক্ষা
+console.log("CART BEFORE ORDER:", JSON.stringify(cart, null, 2));
+// Order-এর জন্য Cart items প্রস্তুত করা
+const orderItems = cart.map(item => ({
+  // আসল Product ID
+  productId: item.productId || item.id,
 
-        productId: item.productId || item.id,
+  // Cart-এর আলাদা Variant ID
+  cartItemId: item.id,
 
-        name: item.name,
+  // পণ্যের তথ্য
+  name: item.name,
+  price: Number(item.price || 0),
+  quantity: Number(item.quantity || 1),
+  image: item.image || "",
 
-        price: Number(item.price || 0),
+  // ক্রেতার নির্বাচিত Size ও Color
+  size: item.size || "",
+  color: item.color || ""
+}));
 
-        quantity:
-          Number(item.quantity || 1),
-
-        image:
-          item.image || ""
-
-      }));
+console.log("ORDER ITEMS:", JSON.stringify(orderItems, null, 2));
 
 
     // Save order
@@ -1438,6 +1589,42 @@ function openProductDetails(id) {
   document.getElementById("detailDescription").innerText =
     selectedProduct.description ||
     "No description available.";
+    
+    
+// পণ্যের Size অপশন দেখানো
+const sizeSection = document.getElementById("detailSizeSection");
+const sizeSelect = document.getElementById("detailSize");
+const sizes = Array.isArray(selectedProduct.sizes)
+  ? selectedProduct.sizes
+  : [];
+
+sizeSection.hidden = sizes.length === 0;
+sizeSelect.innerHTML = '<option value="">Size নির্বাচন করুন</option>';
+
+sizes.forEach(size => {
+  const option = document.createElement("option");
+  option.value = size;
+  option.textContent = size;
+  sizeSelect.appendChild(option);
+});
+
+// পণ্যের Color অপশন দেখানো
+const colorSection = document.getElementById("detailColorSection");
+const colorSelect = document.getElementById("detailColor");
+const colors = Array.isArray(selectedProduct.colors)
+  ? selectedProduct.colors
+  : [];
+
+colorSection.hidden = colors.length === 0;
+colorSelect.innerHTML = '<option value="">Color নির্বাচন করুন</option>';
+
+colors.forEach(color => {
+  const option = document.createElement("option");
+  option.value = color;
+  option.textContent = color;
+  colorSelect.appendChild(option);
+});
+
   
   document.getElementById("quantity").innerText =
     selectedQuantity;
@@ -1491,54 +1678,45 @@ async function addDetailToCart() {
   closeProductDetails();
 };
 
+
+// ========================================
+// UPDATE CART QUANTITY FOR A SPECIFIC VARIANT
+// ========================================
 async function changeCartQuantity(id, amount) {
-  
   const user = window.shoporaAuth.currentUser;
-  
+
   if (!user) {
     alert("Please login first.");
     return;
   }
-  
+
+  // Cart-এর নির্দিষ্ট item খোঁজা
   const item = cart.find(product => product.id === id);
-  
   if (!item) return;
-  
-  
-  let newQuantity =
-    Number(item.quantity || 1) + amount;
-  
-  
-  // Quantity 0 হলে delete
+
+  const newQuantity = Number(item.quantity || 1) + amount;
+
+  // Quantity 0 হলে শুধু এই Cart item মুছে ফেলা
   if (newQuantity <= 0) {
-    
     await removeFromCart(id);
-    
     return;
   }
-  
-  
-  // Product stock check
+
+  // Variant ID নয়, আসল productId দিয়ে Stock খোঁজা
   const product = products.find(
-    product => product.id === id
+    product => product.id === item.productId
   );
-  
+
   if (
     product &&
-    product.stock &&
-    newQuantity > product.stock
+    newQuantity > Number(product.stock ?? 0)
   ) {
-    
-    alert(
-      `Only ${product.stock} items available.`
-    );
-    
+    alert(`Only ${product.stock} items available.`);
     return;
   }
-  
-  
+
   try {
-    
+    // Firestore-এ এই Variant-এর Cart document খোঁজা
     const cartRef = window.firebaseDoc(
       window.shoporaDB,
       "users",
@@ -1546,8 +1724,8 @@ async function changeCartQuantity(id, amount) {
       "cart",
       id
     );
-    
-    
+
+    // Quantity আপডেট; Size ও Color অক্ষত থাকবে
     await window.firebaseSetDoc(
       cartRef,
       {
@@ -1555,22 +1733,14 @@ async function changeCartQuantity(id, amount) {
         quantity: newQuantity
       }
     );
-    
-    
+
     await loadCart();
-    
   } catch (error) {
-    
-    console.error(
-      "Quantity update error:",
-      error
-    );
-    
-    alert(
-      "Could not update quantity."
-    );
+    console.error("Quantity update error:", error);
+    alert("Could not update quantity.");
   }
-};
+}
+
 
 async function removeFromCart(id) {
   
@@ -1951,7 +2121,8 @@ async function loadOrders() {
           ).toLocaleString() :
           "Date unavailable";
         
-        
+        // Admin Panel-এ পাওয়া Order-এর items পরীক্ষা
+        console.log("ADMIN ORDER ITEMS:", order.items);
         // Order-এর products
         const items =
           (order.items || [])
@@ -1967,17 +2138,30 @@ async function loadOrders() {
 
                 <div class="orderProductInfo">
 
-                  <h4>
+                   <h4>
                     ${item.name || "Product"}
                   </h4>
 
-                  <p>
-                    Qty: ${item.quantity || 1}
-                    ×
-                    ৳${Number(
-                      item.price || 0
-                    ).toLocaleString()}
+                 
+                <!-- নির্বাচিত Size ও Color দেখানো -->
+                ${item.size ? `
+                  <p class="orderProductVariant">
+                    Size: ${item.size}
                   </p>
+                ` : ""}
+                
+                ${item.color ? `
+                  <p class="orderProductVariant">
+                    Color: ${item.color}
+                  </p>
+                ` : ""}
+                
+                <p>
+                  Qty: ${item.quantity || 1}
+                  ×
+                  ৳${Number(item.price || 0).toLocaleString()}
+                </p>
+
 
                 </div>
 
@@ -2330,7 +2514,7 @@ async function checkAdmin() {
     }
     
     // Admin data
-    const adminData =
+    const adminData=
       adminDoc.data();
     
     // role পরীক্ষা করছি
@@ -4233,15 +4417,29 @@ function setupAdminProductForm() {
     }
     
     // Form থেকে product-এর তথ্য নেওয়া
+    
+    // Form থেকে product-এর তথ্য নেওয়া
     const product = {
       name: document.getElementById("adminProductName").value.trim(),
       price: Number(document.getElementById("adminProductPrice").value),
       category: document.getElementById("adminProductCategory").value.trim(),
       image: document.getElementById("adminProductImage").value.trim(),
       description: document.getElementById("adminProductDescription").value.trim(),
-      stock: Number(document.getElementById("adminProductStock").value)
+      stock: Number(document.getElementById("adminProductStock").value),
+
+      // Size-গুলো কমা দিয়ে আলাদা করে Array বানানো
+      sizes: document.getElementById("adminProductSizes").value
+        .split(",")
+        .map(size => size.trim())
+        .filter(Boolean),
+
+      // Color-গুলো কমা দিয়ে আলাদা করে Array বানানো
+      colors: document.getElementById("adminProductColors").value
+        .split(",")
+        .map(color => color.trim())
+        .filter(Boolean)
     };
-    
+
     // প্রয়োজনীয় তথ্য যাচাই
     if (
       !product.name ||
@@ -4561,6 +4759,24 @@ async function editAdminProduct(productId, product) {
   document.getElementById("adminProductDescription").value =
     product.description || "";
   document.getElementById("adminProductStock").value = product.stock ?? 0;
+  
+  
+  // আগের পণ্যের Size-গুলো কমা দিয়ে দেখানো
+  const sizesInput = document.getElementById("adminProductSizes");
+  if (sizesInput) {
+    sizesInput.value = Array.isArray(product.sizes)
+      ? product.sizes.join(", ")
+      : "";
+  }
+
+  // আগের পণ্যের Color-গুলো কমা দিয়ে দেখানো
+  const colorsInput = document.getElementById("adminProductColors");
+  if (colorsInput) {
+    colorsInput.value = Array.isArray(product.colors)
+      ? product.colors.join(", ")
+      : "";
+  }
+
 
   // Button ও message পরিবর্তন
   document.getElementById("adminProductSaveButton").textContent =
@@ -5681,3 +5897,104 @@ function openShopPage() {
     });
   }
 }
+
+
+/* Shopora Banner Slider */
+let shoporaCurrentBanner = 0;
+let shoporaBannerTimer = null;
+
+// নির্দিষ্ট ব্যানার দেখানো
+function showShoporaBanner(index) {
+  const slider = document.getElementById("shoporaBannerSlider");
+  if (!slider) return;
+
+  const banners = slider.querySelectorAll(".shopora-banner");
+  const dots = slider.querySelectorAll(".banner-dot");
+
+  if (!banners.length) return;
+
+  shoporaCurrentBanner = (index + banners.length) % banners.length;
+
+  banners.forEach((banner, i) => {
+    banner.classList.toggle("active", i === shoporaCurrentBanner);
+  });
+
+  dots.forEach((dot, i) => {
+    dot.classList.toggle("active", i === shoporaCurrentBanner);
+  });
+}
+
+// অফার বাটনে চাপ দিলে Product List-এ যাওয়া
+function shoporaBannerShop() {
+  const productList = document.getElementById("productList");
+
+  if (productList) {
+    productList.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  } else {
+    alert("Products section পাওয়া যায়নি।");
+  }
+}
+
+// ব্যানার স্বয়ংক্রিয়ভাবে পরিবর্তন
+function startShoporaBannerSlider() {
+  if (shoporaBannerTimer) {
+    clearInterval(shoporaBannerTimer);
+  }
+
+  const slider = document.getElementById("shoporaBannerSlider");
+  if (!slider) return;
+
+  showShoporaBanner(shoporaCurrentBanner);
+
+  shoporaBannerTimer = setInterval(() => {
+    showShoporaBanner(shoporaCurrentBanner + 1);
+  }, 4000);
+}
+
+// HTML onclick থেকে ব্যবহারযোগ্য করা
+window.showShoporaBanner = showShoporaBanner;
+window.shoporaBannerShop = shoporaBannerShop;
+
+// পেজ লোড হলে Slider চালু করা
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", startShoporaBannerSlider);
+} else {
+  startShoporaBannerSlider();
+}
+
+
+
+// =====================================
+// SHOPORA SPLASH SCREEN
+// =====================================
+
+// Splash Screen কয়েক সেকেন্ড পর লুকানো
+function hideShoporaSplash() {
+  const splash = document.getElementById("shoporaSplash");
+
+  if (!splash) return;
+
+  // Fade-out Animation শুরু
+  splash.classList.add("splash-hidden");
+}
+
+// পেজ লোড হওয়ার পর Splash Screen দেখানো
+function initShoporaSplash() {
+  const splash = document.getElementById("shoporaSplash");
+
+  if (!splash) return;
+
+  // 2.5 সেকেন্ড পর Splash Screen বন্ধ
+  setTimeout(hideShoporaSplash, 2500);
+}
+
+// HTML পুরো লোড হলে চালু করা
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initShoporaSplash);
+} else {
+  initShoporaSplash();
+}
+
